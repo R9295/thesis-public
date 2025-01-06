@@ -1,0 +1,4 @@
+commit: fd4659b60e6df53bad21421672fb904e01c00384
+commit_date: 2024-12-08 23:57:06+00:00
+fuzz_target: fuzz
+project: mruby

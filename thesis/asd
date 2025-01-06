@@ -1,0 +1,2063 @@
+warning: `/home/aarnav/projects/.cargo/config` is deprecated in favor of `config.toml`
+note: if you need to support cargo 1.38 or earlier, you can symlink `config` to `config.toml`
+warning: virtual workspace defaulting to `resolver = "1"` despite one or more workspace members being on edition 2021 which implies `resolver = "2"`
+note: to keep the current resolver, specify `workspace.resolver = "1"` in the workspace root's manifest
+note: to use the edition 2021 resolver, specify `workspace.resolver = "2"` in the workspace root's manifest
+note: for more details see https://doc.rust-lang.org/cargo/reference/resolver.html#resolver-versions
+warning: /home/aarnav/projects/thesis/Cargo.toml: unused manifest key: workspace.edition
+   Compiling thesis v0.1.0 (/home/aarnav/projects/thesis/thesis)
+warning: the feature `core_intrinsics` is internal to the compiler or standard library
+ --> thesis/src/lib.rs:1:12
+  |
+1 | #![feature(core_intrinsics)]
+  |            ^^^^^^^^^^^^^^^
+  |
+  = note: using it is strongly discouraged
+  = note: `#[warn(internal_features)]` on by default
+
+warning: unused import: `serde::*`
+  --> thesis/src/lib.rs:13:9
+   |
+13 | pub use serde::*;
+   |         ^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` on by default
+
+error[E0277]: the trait bound `&mut &[u8]: Clone` is not satisfied
+  --> thesis/src/tree.rs:18:12
+   |
+15 | #[derive(Debug, Clone)]
+   |                 ----- in this derive macro expansion
+...
+18 |     Splice(&'a mut &'a [u8]),
+   |            ^^^^^^^^^^^^^^^^ the trait `Clone` is not implemented for `&mut &[u8]`
+   |
+   = help: the trait `Clone` is implemented for `[T; N]`
+   = note: this error originates in the derive macro `Clone` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error[E0277]: the trait bound `&mut &[u8]: Clone` is not satisfied
+  --> thesis/src/tree.rs:19:18
+   |
+15 | #[derive(Debug, Clone)]
+   |                 ----- in this derive macro expansion
+...
+19 |     SpliceAppend(&'a mut &'a [u8]),
+   |                  ^^^^^^^^^^^^^^^^ the trait `Clone` is not implemented for `&mut &[u8]`
+   |
+   = help: the trait `Clone` is implemented for `[T; N]`
+   = note: this error originates in the derive macro `Clone` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `other`
+   --> thesis/src/serde.rs:72:52
+    |
+72  |                         MutationType::SpliceAppend(other) => {
+    |                                                    ^^^^^ help: if this is intentional, prefix it with an underscore: `_other`
+...
+101 | impl_node_serde_array!(1usize);
+    | ------------------------------ in this macro invocation
+    |
+    = note: `#[warn(unused_variables)]` on by default
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/serde.rs:79:53
+    |
+79  |             fn fields(&self, visitor: &mut Visitor, index: usize) {
+    |                                                     ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+101 | impl_node_serde_array!(1usize);
+    | ------------------------------ in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/serde.rs:88:51
+    |
+88  |             fn cmps(&self, visitor: &mut Visitor, index: usize, val: (u64, u64)) {
+    |                                                   ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+101 | impl_node_serde_array!(1usize);
+    | ------------------------------ in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `other`
+   --> thesis/src/serde.rs:72:52
+    |
+72  |                         MutationType::SpliceAppend(other) => {
+    |                                                    ^^^^^ help: if this is intentional, prefix it with an underscore: `_other`
+...
+103 | impl_node_serde_array!(2usize);
+    | ------------------------------ in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/serde.rs:79:53
+    |
+79  |             fn fields(&self, visitor: &mut Visitor, index: usize) {
+    |                                                     ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+103 | impl_node_serde_array!(2usize);
+    | ------------------------------ in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/serde.rs:88:51
+    |
+88  |             fn cmps(&self, visitor: &mut Visitor, index: usize, val: (u64, u64)) {
+    |                                                   ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+103 | impl_node_serde_array!(2usize);
+    | ------------------------------ in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `other`
+   --> thesis/src/serde.rs:72:52
+    |
+72  |                         MutationType::SpliceAppend(other) => {
+    |                                                    ^^^^^ help: if this is intentional, prefix it with an underscore: `_other`
+...
+105 | impl_node_serde_array!(3usize);
+    | ------------------------------ in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/serde.rs:79:53
+    |
+79  |             fn fields(&self, visitor: &mut Visitor, index: usize) {
+    |                                                     ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+105 | impl_node_serde_array!(3usize);
+    | ------------------------------ in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/serde.rs:88:51
+    |
+88  |             fn cmps(&self, visitor: &mut Visitor, index: usize, val: (u64, u64)) {
+    |                                                   ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+105 | impl_node_serde_array!(3usize);
+    | ------------------------------ in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `other`
+   --> thesis/src/serde.rs:72:52
+    |
+72  |                         MutationType::SpliceAppend(other) => {
+    |                                                    ^^^^^ help: if this is intentional, prefix it with an underscore: `_other`
+...
+107 | impl_node_serde_array!(4usize);
+    | ------------------------------ in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/serde.rs:79:53
+    |
+79  |             fn fields(&self, visitor: &mut Visitor, index: usize) {
+    |                                                     ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+107 | impl_node_serde_array!(4usize);
+    | ------------------------------ in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/serde.rs:88:51
+    |
+88  |             fn cmps(&self, visitor: &mut Visitor, index: usize, val: (u64, u64)) {
+    |                                                   ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+107 | impl_node_serde_array!(4usize);
+    | ------------------------------ in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `other`
+   --> thesis/src/serde.rs:72:52
+    |
+72  |                         MutationType::SpliceAppend(other) => {
+    |                                                    ^^^^^ help: if this is intentional, prefix it with an underscore: `_other`
+...
+109 | impl_node_serde_array!(5usize);
+    | ------------------------------ in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/serde.rs:79:53
+    |
+79  |             fn fields(&self, visitor: &mut Visitor, index: usize) {
+    |                                                     ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+109 | impl_node_serde_array!(5usize);
+    | ------------------------------ in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/serde.rs:88:51
+    |
+88  |             fn cmps(&self, visitor: &mut Visitor, index: usize, val: (u64, u64)) {
+    |                                                   ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+109 | impl_node_serde_array!(5usize);
+    | ------------------------------ in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `other`
+   --> thesis/src/serde.rs:72:52
+    |
+72  |                         MutationType::SpliceAppend(other) => {
+    |                                                    ^^^^^ help: if this is intentional, prefix it with an underscore: `_other`
+...
+111 | impl_node_serde_array!(6usize);
+    | ------------------------------ in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/serde.rs:79:53
+    |
+79  |             fn fields(&self, visitor: &mut Visitor, index: usize) {
+    |                                                     ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+111 | impl_node_serde_array!(6usize);
+    | ------------------------------ in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/serde.rs:88:51
+    |
+88  |             fn cmps(&self, visitor: &mut Visitor, index: usize, val: (u64, u64)) {
+    |                                                   ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+111 | impl_node_serde_array!(6usize);
+    | ------------------------------ in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `other`
+   --> thesis/src/serde.rs:72:52
+    |
+72  |                         MutationType::SpliceAppend(other) => {
+    |                                                    ^^^^^ help: if this is intentional, prefix it with an underscore: `_other`
+...
+113 | impl_node_serde_array!(7usize);
+    | ------------------------------ in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/serde.rs:79:53
+    |
+79  |             fn fields(&self, visitor: &mut Visitor, index: usize) {
+    |                                                     ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+113 | impl_node_serde_array!(7usize);
+    | ------------------------------ in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/serde.rs:88:51
+    |
+88  |             fn cmps(&self, visitor: &mut Visitor, index: usize, val: (u64, u64)) {
+    |                                                   ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+113 | impl_node_serde_array!(7usize);
+    | ------------------------------ in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `other`
+   --> thesis/src/serde.rs:72:52
+    |
+72  |                         MutationType::SpliceAppend(other) => {
+    |                                                    ^^^^^ help: if this is intentional, prefix it with an underscore: `_other`
+...
+115 | impl_node_serde_array!(8usize);
+    | ------------------------------ in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/serde.rs:79:53
+    |
+79  |             fn fields(&self, visitor: &mut Visitor, index: usize) {
+    |                                                     ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+115 | impl_node_serde_array!(8usize);
+    | ------------------------------ in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/serde.rs:88:51
+    |
+88  |             fn cmps(&self, visitor: &mut Visitor, index: usize, val: (u64, u64)) {
+    |                                                   ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+115 | impl_node_serde_array!(8usize);
+    | ------------------------------ in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `other`
+   --> thesis/src/serde.rs:72:52
+    |
+72  |                         MutationType::SpliceAppend(other) => {
+    |                                                    ^^^^^ help: if this is intentional, prefix it with an underscore: `_other`
+...
+117 | impl_node_serde_array!(9usize);
+    | ------------------------------ in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/serde.rs:79:53
+    |
+79  |             fn fields(&self, visitor: &mut Visitor, index: usize) {
+    |                                                     ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+117 | impl_node_serde_array!(9usize);
+    | ------------------------------ in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/serde.rs:88:51
+    |
+88  |             fn cmps(&self, visitor: &mut Visitor, index: usize, val: (u64, u64)) {
+    |                                                   ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+117 | impl_node_serde_array!(9usize);
+    | ------------------------------ in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `other`
+   --> thesis/src/serde.rs:72:52
+    |
+72  |                         MutationType::SpliceAppend(other) => {
+    |                                                    ^^^^^ help: if this is intentional, prefix it with an underscore: `_other`
+...
+119 | impl_node_serde_array!(10usize);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/serde.rs:79:53
+    |
+79  |             fn fields(&self, visitor: &mut Visitor, index: usize) {
+    |                                                     ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+119 | impl_node_serde_array!(10usize);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/serde.rs:88:51
+    |
+88  |             fn cmps(&self, visitor: &mut Visitor, index: usize, val: (u64, u64)) {
+    |                                                   ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+119 | impl_node_serde_array!(10usize);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `other`
+   --> thesis/src/serde.rs:72:52
+    |
+72  |                         MutationType::SpliceAppend(other) => {
+    |                                                    ^^^^^ help: if this is intentional, prefix it with an underscore: `_other`
+...
+121 | impl_node_serde_array!(11usize);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/serde.rs:79:53
+    |
+79  |             fn fields(&self, visitor: &mut Visitor, index: usize) {
+    |                                                     ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+121 | impl_node_serde_array!(11usize);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/serde.rs:88:51
+    |
+88  |             fn cmps(&self, visitor: &mut Visitor, index: usize, val: (u64, u64)) {
+    |                                                   ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+121 | impl_node_serde_array!(11usize);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `other`
+   --> thesis/src/serde.rs:72:52
+    |
+72  |                         MutationType::SpliceAppend(other) => {
+    |                                                    ^^^^^ help: if this is intentional, prefix it with an underscore: `_other`
+...
+123 | impl_node_serde_array!(12usize);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/serde.rs:79:53
+    |
+79  |             fn fields(&self, visitor: &mut Visitor, index: usize) {
+    |                                                     ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+123 | impl_node_serde_array!(12usize);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/serde.rs:88:51
+    |
+88  |             fn cmps(&self, visitor: &mut Visitor, index: usize, val: (u64, u64)) {
+    |                                                   ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+123 | impl_node_serde_array!(12usize);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `other`
+   --> thesis/src/serde.rs:72:52
+    |
+72  |                         MutationType::SpliceAppend(other) => {
+    |                                                    ^^^^^ help: if this is intentional, prefix it with an underscore: `_other`
+...
+125 | impl_node_serde_array!(13usize);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/serde.rs:79:53
+    |
+79  |             fn fields(&self, visitor: &mut Visitor, index: usize) {
+    |                                                     ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+125 | impl_node_serde_array!(13usize);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/serde.rs:88:51
+    |
+88  |             fn cmps(&self, visitor: &mut Visitor, index: usize, val: (u64, u64)) {
+    |                                                   ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+125 | impl_node_serde_array!(13usize);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `other`
+   --> thesis/src/serde.rs:72:52
+    |
+72  |                         MutationType::SpliceAppend(other) => {
+    |                                                    ^^^^^ help: if this is intentional, prefix it with an underscore: `_other`
+...
+127 | impl_node_serde_array!(14usize);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/serde.rs:79:53
+    |
+79  |             fn fields(&self, visitor: &mut Visitor, index: usize) {
+    |                                                     ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+127 | impl_node_serde_array!(14usize);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/serde.rs:88:51
+    |
+88  |             fn cmps(&self, visitor: &mut Visitor, index: usize, val: (u64, u64)) {
+    |                                                   ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+127 | impl_node_serde_array!(14usize);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `other`
+   --> thesis/src/serde.rs:72:52
+    |
+72  |                         MutationType::SpliceAppend(other) => {
+    |                                                    ^^^^^ help: if this is intentional, prefix it with an underscore: `_other`
+...
+129 | impl_node_serde_array!(15usize);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/serde.rs:79:53
+    |
+79  |             fn fields(&self, visitor: &mut Visitor, index: usize) {
+    |                                                     ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+129 | impl_node_serde_array!(15usize);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/serde.rs:88:51
+    |
+88  |             fn cmps(&self, visitor: &mut Visitor, index: usize, val: (u64, u64)) {
+    |                                                   ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+129 | impl_node_serde_array!(15usize);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `other`
+   --> thesis/src/serde.rs:72:52
+    |
+72  |                         MutationType::SpliceAppend(other) => {
+    |                                                    ^^^^^ help: if this is intentional, prefix it with an underscore: `_other`
+...
+131 | impl_node_serde_array!(16usize);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/serde.rs:79:53
+    |
+79  |             fn fields(&self, visitor: &mut Visitor, index: usize) {
+    |                                                     ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+131 | impl_node_serde_array!(16usize);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/serde.rs:88:51
+    |
+88  |             fn cmps(&self, visitor: &mut Visitor, index: usize, val: (u64, u64)) {
+    |                                                   ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+131 | impl_node_serde_array!(16usize);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `other`
+   --> thesis/src/serde.rs:72:52
+    |
+72  |                         MutationType::SpliceAppend(other) => {
+    |                                                    ^^^^^ help: if this is intentional, prefix it with an underscore: `_other`
+...
+133 | impl_node_serde_array!(17usize);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/serde.rs:79:53
+    |
+79  |             fn fields(&self, visitor: &mut Visitor, index: usize) {
+    |                                                     ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+133 | impl_node_serde_array!(17usize);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/serde.rs:88:51
+    |
+88  |             fn cmps(&self, visitor: &mut Visitor, index: usize, val: (u64, u64)) {
+    |                                                   ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+133 | impl_node_serde_array!(17usize);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `other`
+   --> thesis/src/serde.rs:72:52
+    |
+72  |                         MutationType::SpliceAppend(other) => {
+    |                                                    ^^^^^ help: if this is intentional, prefix it with an underscore: `_other`
+...
+135 | impl_node_serde_array!(18usize);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/serde.rs:79:53
+    |
+79  |             fn fields(&self, visitor: &mut Visitor, index: usize) {
+    |                                                     ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+135 | impl_node_serde_array!(18usize);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/serde.rs:88:51
+    |
+88  |             fn cmps(&self, visitor: &mut Visitor, index: usize, val: (u64, u64)) {
+    |                                                   ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+135 | impl_node_serde_array!(18usize);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `other`
+   --> thesis/src/serde.rs:72:52
+    |
+72  |                         MutationType::SpliceAppend(other) => {
+    |                                                    ^^^^^ help: if this is intentional, prefix it with an underscore: `_other`
+...
+137 | impl_node_serde_array!(19usize);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/serde.rs:79:53
+    |
+79  |             fn fields(&self, visitor: &mut Visitor, index: usize) {
+    |                                                     ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+137 | impl_node_serde_array!(19usize);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/serde.rs:88:51
+    |
+88  |             fn cmps(&self, visitor: &mut Visitor, index: usize, val: (u64, u64)) {
+    |                                                   ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+137 | impl_node_serde_array!(19usize);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `other`
+   --> thesis/src/serde.rs:72:52
+    |
+72  |                         MutationType::SpliceAppend(other) => {
+    |                                                    ^^^^^ help: if this is intentional, prefix it with an underscore: `_other`
+...
+139 | impl_node_serde_array!(20usize);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/serde.rs:79:53
+    |
+79  |             fn fields(&self, visitor: &mut Visitor, index: usize) {
+    |                                                     ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+139 | impl_node_serde_array!(20usize);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/serde.rs:88:51
+    |
+88  |             fn cmps(&self, visitor: &mut Visitor, index: usize, val: (u64, u64)) {
+    |                                                   ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+139 | impl_node_serde_array!(20usize);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `other`
+   --> thesis/src/serde.rs:72:52
+    |
+72  |                         MutationType::SpliceAppend(other) => {
+    |                                                    ^^^^^ help: if this is intentional, prefix it with an underscore: `_other`
+...
+141 | impl_node_serde_array!(21usize);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/serde.rs:79:53
+    |
+79  |             fn fields(&self, visitor: &mut Visitor, index: usize) {
+    |                                                     ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+141 | impl_node_serde_array!(21usize);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/serde.rs:88:51
+    |
+88  |             fn cmps(&self, visitor: &mut Visitor, index: usize, val: (u64, u64)) {
+    |                                                   ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+141 | impl_node_serde_array!(21usize);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `other`
+   --> thesis/src/serde.rs:72:52
+    |
+72  |                         MutationType::SpliceAppend(other) => {
+    |                                                    ^^^^^ help: if this is intentional, prefix it with an underscore: `_other`
+...
+143 | impl_node_serde_array!(22usize);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/serde.rs:79:53
+    |
+79  |             fn fields(&self, visitor: &mut Visitor, index: usize) {
+    |                                                     ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+143 | impl_node_serde_array!(22usize);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/serde.rs:88:51
+    |
+88  |             fn cmps(&self, visitor: &mut Visitor, index: usize, val: (u64, u64)) {
+    |                                                   ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+143 | impl_node_serde_array!(22usize);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `other`
+   --> thesis/src/serde.rs:72:52
+    |
+72  |                         MutationType::SpliceAppend(other) => {
+    |                                                    ^^^^^ help: if this is intentional, prefix it with an underscore: `_other`
+...
+145 | impl_node_serde_array!(23usize);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/serde.rs:79:53
+    |
+79  |             fn fields(&self, visitor: &mut Visitor, index: usize) {
+    |                                                     ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+145 | impl_node_serde_array!(23usize);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/serde.rs:88:51
+    |
+88  |             fn cmps(&self, visitor: &mut Visitor, index: usize, val: (u64, u64)) {
+    |                                                   ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+145 | impl_node_serde_array!(23usize);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `other`
+   --> thesis/src/serde.rs:72:52
+    |
+72  |                         MutationType::SpliceAppend(other) => {
+    |                                                    ^^^^^ help: if this is intentional, prefix it with an underscore: `_other`
+...
+147 | impl_node_serde_array!(24usize);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/serde.rs:79:53
+    |
+79  |             fn fields(&self, visitor: &mut Visitor, index: usize) {
+    |                                                     ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+147 | impl_node_serde_array!(24usize);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/serde.rs:88:51
+    |
+88  |             fn cmps(&self, visitor: &mut Visitor, index: usize, val: (u64, u64)) {
+    |                                                   ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+147 | impl_node_serde_array!(24usize);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `other`
+   --> thesis/src/serde.rs:72:52
+    |
+72  |                         MutationType::SpliceAppend(other) => {
+    |                                                    ^^^^^ help: if this is intentional, prefix it with an underscore: `_other`
+...
+149 | impl_node_serde_array!(25usize);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/serde.rs:79:53
+    |
+79  |             fn fields(&self, visitor: &mut Visitor, index: usize) {
+    |                                                     ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+149 | impl_node_serde_array!(25usize);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/serde.rs:88:51
+    |
+88  |             fn cmps(&self, visitor: &mut Visitor, index: usize, val: (u64, u64)) {
+    |                                                   ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+149 | impl_node_serde_array!(25usize);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `other`
+   --> thesis/src/serde.rs:72:52
+    |
+72  |                         MutationType::SpliceAppend(other) => {
+    |                                                    ^^^^^ help: if this is intentional, prefix it with an underscore: `_other`
+...
+151 | impl_node_serde_array!(26usize);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/serde.rs:79:53
+    |
+79  |             fn fields(&self, visitor: &mut Visitor, index: usize) {
+    |                                                     ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+151 | impl_node_serde_array!(26usize);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/serde.rs:88:51
+    |
+88  |             fn cmps(&self, visitor: &mut Visitor, index: usize, val: (u64, u64)) {
+    |                                                   ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+151 | impl_node_serde_array!(26usize);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `other`
+   --> thesis/src/serde.rs:72:52
+    |
+72  |                         MutationType::SpliceAppend(other) => {
+    |                                                    ^^^^^ help: if this is intentional, prefix it with an underscore: `_other`
+...
+153 | impl_node_serde_array!(27usize);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/serde.rs:79:53
+    |
+79  |             fn fields(&self, visitor: &mut Visitor, index: usize) {
+    |                                                     ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+153 | impl_node_serde_array!(27usize);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/serde.rs:88:51
+    |
+88  |             fn cmps(&self, visitor: &mut Visitor, index: usize, val: (u64, u64)) {
+    |                                                   ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+153 | impl_node_serde_array!(27usize);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `other`
+   --> thesis/src/serde.rs:72:52
+    |
+72  |                         MutationType::SpliceAppend(other) => {
+    |                                                    ^^^^^ help: if this is intentional, prefix it with an underscore: `_other`
+...
+155 | impl_node_serde_array!(28usize);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/serde.rs:79:53
+    |
+79  |             fn fields(&self, visitor: &mut Visitor, index: usize) {
+    |                                                     ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+155 | impl_node_serde_array!(28usize);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/serde.rs:88:51
+    |
+88  |             fn cmps(&self, visitor: &mut Visitor, index: usize, val: (u64, u64)) {
+    |                                                   ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+155 | impl_node_serde_array!(28usize);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `other`
+   --> thesis/src/serde.rs:72:52
+    |
+72  |                         MutationType::SpliceAppend(other) => {
+    |                                                    ^^^^^ help: if this is intentional, prefix it with an underscore: `_other`
+...
+157 | impl_node_serde_array!(29usize);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/serde.rs:79:53
+    |
+79  |             fn fields(&self, visitor: &mut Visitor, index: usize) {
+    |                                                     ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+157 | impl_node_serde_array!(29usize);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/serde.rs:88:51
+    |
+88  |             fn cmps(&self, visitor: &mut Visitor, index: usize, val: (u64, u64)) {
+    |                                                   ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+157 | impl_node_serde_array!(29usize);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `other`
+   --> thesis/src/serde.rs:72:52
+    |
+72  |                         MutationType::SpliceAppend(other) => {
+    |                                                    ^^^^^ help: if this is intentional, prefix it with an underscore: `_other`
+...
+159 | impl_node_serde_array!(30usize);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/serde.rs:79:53
+    |
+79  |             fn fields(&self, visitor: &mut Visitor, index: usize) {
+    |                                                     ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+159 | impl_node_serde_array!(30usize);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/serde.rs:88:51
+    |
+88  |             fn cmps(&self, visitor: &mut Visitor, index: usize, val: (u64, u64)) {
+    |                                                   ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+159 | impl_node_serde_array!(30usize);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `other`
+   --> thesis/src/serde.rs:72:52
+    |
+72  |                         MutationType::SpliceAppend(other) => {
+    |                                                    ^^^^^ help: if this is intentional, prefix it with an underscore: `_other`
+...
+161 | impl_node_serde_array!(31usize);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/serde.rs:79:53
+    |
+79  |             fn fields(&self, visitor: &mut Visitor, index: usize) {
+    |                                                     ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+161 | impl_node_serde_array!(31usize);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/serde.rs:88:51
+    |
+88  |             fn cmps(&self, visitor: &mut Visitor, index: usize, val: (u64, u64)) {
+    |                                                   ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+161 | impl_node_serde_array!(31usize);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `other`
+   --> thesis/src/serde.rs:72:52
+    |
+72  |                         MutationType::SpliceAppend(other) => {
+    |                                                    ^^^^^ help: if this is intentional, prefix it with an underscore: `_other`
+...
+163 | impl_node_serde_array!(32usize);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/serde.rs:79:53
+    |
+79  |             fn fields(&self, visitor: &mut Visitor, index: usize) {
+    |                                                     ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+163 | impl_node_serde_array!(32usize);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/serde.rs:88:51
+    |
+88  |             fn cmps(&self, visitor: &mut Visitor, index: usize, val: (u64, u64)) {
+    |                                                   ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+163 | impl_node_serde_array!(32usize);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_node_serde_array` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `visitor`
+  --> thesis/src/tree.rs:44:22
+   |
+44 |     fn fields(&self, visitor: &mut Visitor, index: usize) {}
+   |                      ^^^^^^^ help: if this is intentional, prefix it with an underscore: `_visitor`
+
+warning: unused variable: `index`
+  --> thesis/src/tree.rs:44:45
+   |
+44 |     fn fields(&self, visitor: &mut Visitor, index: usize) {}
+   |                                             ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+
+warning: unused variable: `visitor`
+  --> thesis/src/tree.rs:46:20
+   |
+46 |     fn cmps(&self, visitor: &mut Visitor, index: usize, val: (u64, u64)) {}
+   |                    ^^^^^^^ help: if this is intentional, prefix it with an underscore: `_visitor`
+
+warning: unused variable: `index`
+  --> thesis/src/tree.rs:46:43
+   |
+46 |     fn cmps(&self, visitor: &mut Visitor, index: usize, val: (u64, u64)) {}
+   |                                           ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+
+warning: unused variable: `val`
+  --> thesis/src/tree.rs:46:57
+   |
+46 |     fn cmps(&self, visitor: &mut Visitor, index: usize, val: (u64, u64)) {}
+   |                                                         ^^^ help: if this is intentional, prefix it with an underscore: `_val`
+
+warning: unused variable: `other`
+  --> thesis/src/tree.rs:61:40
+   |
+61 |             MutationType::SpliceAppend(other) => {
+   |                                        ^^^^^ help: if this is intentional, prefix it with an underscore: `_other`
+
+warning: unused variable: `i`
+   --> thesis/src/tree.rs:274:13
+    |
+274 |         for i in 0..element_count {
+    |             ^ help: if this is intentional, prefix it with an underscore: `_i`
+
+warning: unused variable: `index`
+   --> thesis/src/tree.rs:330:45
+    |
+330 |     fn fields(&self, visitor: &mut Visitor, index: usize) {
+    |                                             ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+
+warning: unused variable: `index`
+   --> thesis/src/tree.rs:338:43
+    |
+338 |     fn cmps(&self, visitor: &mut Visitor, index: usize, val: (u64, u64)) {
+    |                                           ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+
+warning: unused variable: `depth`
+   --> thesis/src/tree.rs:348:40
+    |
+348 |     fn generate(visitor: &mut Visitor, depth: &mut usize, cur_depth: &mut usize) -> Self {
+    |                                        ^^^^^ help: if this is intentional, prefix it with an underscore: `_depth`
+
+warning: unused variable: `cur_depth`
+   --> thesis/src/tree.rs:348:59
+    |
+348 |     fn generate(visitor: &mut Visitor, depth: &mut usize, cur_depth: &mut usize) -> Self {
+    |                                                           ^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_cur_depth`
+
+warning: unused variable: `other`
+   --> thesis/src/tree.rs:417:44
+    |
+417 |                 MutationType::SpliceAppend(other) => {
+    |                                            ^^^^^ help: if this is intentional, prefix it with an underscore: `_other`
+
+warning: unused variable: `other`
+   --> thesis/src/tree.rs:491:44
+    |
+491 |                 MutationType::SpliceAppend(other) => {
+    |                                            ^^^^^ help: if this is intentional, prefix it with an underscore: `_other`
+
+warning: unused variable: `depth`
+   --> thesis/src/tree.rs:544:40
+    |
+544 |     fn generate(visitor: &mut Visitor, depth: &mut usize, cur_depth: &mut usize) -> Self {
+    |                                        ^^^^^ help: if this is intentional, prefix it with an underscore: `_depth`
+
+warning: unused variable: `cur_depth`
+   --> thesis/src/tree.rs:544:59
+    |
+544 |     fn generate(visitor: &mut Visitor, depth: &mut usize, cur_depth: &mut usize) -> Self {
+    |                                                           ^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_cur_depth`
+
+warning: unused variable: `other`
+   --> thesis/src/tree.rs:578:51
+    |
+578 |                        MutationType::SpliceAppend(other) => {
+    |                                                   ^^^^^ help: if this is intentional, prefix it with an underscore: `_other`
+...
+620 | tuple_impls! { (A,  0) }
+    | ------------------------ in this macro invocation
+    |
+    = note: this warning originates in the macro `tuple_impls` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/tree.rs:590:53
+    |
+590 |             fn fields(&self, visitor: &mut Visitor, index: usize) {
+    |                                                     ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+620 | tuple_impls! { (A,  0) }
+    | ------------------------ in this macro invocation
+    |
+    = note: this warning originates in the macro `tuple_impls` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/tree.rs:608:51
+    |
+608 |             fn cmps(&self, visitor: &mut Visitor, index: usize, val: (u64, u64)) {
+    |                                                   ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+620 | tuple_impls! { (A,  0) }
+    | ------------------------ in this macro invocation
+    |
+    = note: this warning originates in the macro `tuple_impls` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `other`
+   --> thesis/src/tree.rs:578:51
+    |
+578 |                        MutationType::SpliceAppend(other) => {
+    |                                                   ^^^^^ help: if this is intentional, prefix it with an underscore: `_other`
+...
+621 | tuple_impls! { (A , 0) ,(B, 1) }
+    | -------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `tuple_impls` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/tree.rs:590:53
+    |
+590 |             fn fields(&self, visitor: &mut Visitor, index: usize) {
+    |                                                     ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+621 | tuple_impls! { (A , 0) ,(B, 1) }
+    | -------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `tuple_impls` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/tree.rs:608:51
+    |
+608 |             fn cmps(&self, visitor: &mut Visitor, index: usize, val: (u64, u64)) {
+    |                                                   ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+621 | tuple_impls! { (A , 0) ,(B, 1) }
+    | -------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `tuple_impls` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `other`
+   --> thesis/src/tree.rs:578:51
+    |
+578 |                        MutationType::SpliceAppend(other) => {
+    |                                                   ^^^^^ help: if this is intentional, prefix it with an underscore: `_other`
+...
+622 | tuple_impls! { (A , 0) ,(B, 1), (C, 2) }
+    | ---------------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `tuple_impls` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/tree.rs:590:53
+    |
+590 |             fn fields(&self, visitor: &mut Visitor, index: usize) {
+    |                                                     ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+622 | tuple_impls! { (A , 0) ,(B, 1), (C, 2) }
+    | ---------------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `tuple_impls` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/tree.rs:608:51
+    |
+608 |             fn cmps(&self, visitor: &mut Visitor, index: usize, val: (u64, u64)) {
+    |                                                   ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+622 | tuple_impls! { (A , 0) ,(B, 1), (C, 2) }
+    | ---------------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `tuple_impls` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `other`
+   --> thesis/src/tree.rs:578:51
+    |
+578 |                        MutationType::SpliceAppend(other) => {
+    |                                                   ^^^^^ help: if this is intentional, prefix it with an underscore: `_other`
+...
+623 | tuple_impls! { (A , 0) ,(B, 1), (C, 2) ,(D, 3) }
+    | ------------------------------------------------ in this macro invocation
+    |
+    = note: this warning originates in the macro `tuple_impls` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/tree.rs:590:53
+    |
+590 |             fn fields(&self, visitor: &mut Visitor, index: usize) {
+    |                                                     ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+623 | tuple_impls! { (A , 0) ,(B, 1), (C, 2) ,(D, 3) }
+    | ------------------------------------------------ in this macro invocation
+    |
+    = note: this warning originates in the macro `tuple_impls` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/tree.rs:608:51
+    |
+608 |             fn cmps(&self, visitor: &mut Visitor, index: usize, val: (u64, u64)) {
+    |                                                   ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+623 | tuple_impls! { (A , 0) ,(B, 1), (C, 2) ,(D, 3) }
+    | ------------------------------------------------ in this macro invocation
+    |
+    = note: this warning originates in the macro `tuple_impls` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `other`
+   --> thesis/src/tree.rs:578:51
+    |
+578 |                        MutationType::SpliceAppend(other) => {
+    |                                                   ^^^^^ help: if this is intentional, prefix it with an underscore: `_other`
+...
+624 | tuple_impls! { (A , 0) ,(B, 1), (C, 2) ,(D, 3) ,(E, 4) }
+    | -------------------------------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `tuple_impls` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/tree.rs:590:53
+    |
+590 |             fn fields(&self, visitor: &mut Visitor, index: usize) {
+    |                                                     ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+624 | tuple_impls! { (A , 0) ,(B, 1), (C, 2) ,(D, 3) ,(E, 4) }
+    | -------------------------------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `tuple_impls` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/tree.rs:608:51
+    |
+608 |             fn cmps(&self, visitor: &mut Visitor, index: usize, val: (u64, u64)) {
+    |                                                   ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+624 | tuple_impls! { (A , 0) ,(B, 1), (C, 2) ,(D, 3) ,(E, 4) }
+    | -------------------------------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `tuple_impls` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `other`
+   --> thesis/src/tree.rs:578:51
+    |
+578 |                        MutationType::SpliceAppend(other) => {
+    |                                                   ^^^^^ help: if this is intentional, prefix it with an underscore: `_other`
+...
+625 | tuple_impls! { (A , 0) ,(B, 1), (C, 2) ,(D, 3) ,(E, 4) ,(F, 5) }
+    | ---------------------------------------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `tuple_impls` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/tree.rs:590:53
+    |
+590 |             fn fields(&self, visitor: &mut Visitor, index: usize) {
+    |                                                     ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+625 | tuple_impls! { (A , 0) ,(B, 1), (C, 2) ,(D, 3) ,(E, 4) ,(F, 5) }
+    | ---------------------------------------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `tuple_impls` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/tree.rs:608:51
+    |
+608 |             fn cmps(&self, visitor: &mut Visitor, index: usize, val: (u64, u64)) {
+    |                                                   ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+625 | tuple_impls! { (A , 0) ,(B, 1), (C, 2) ,(D, 3) ,(E, 4) ,(F, 5) }
+    | ---------------------------------------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `tuple_impls` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `other`
+   --> thesis/src/tree.rs:578:51
+    |
+578 |                        MutationType::SpliceAppend(other) => {
+    |                                                   ^^^^^ help: if this is intentional, prefix it with an underscore: `_other`
+...
+626 | tuple_impls! { (A , 0) ,(B, 1), (C, 2) ,(D, 3) ,(E, 4) ,(F, 5) ,(G, 6) }
+    | ------------------------------------------------------------------------ in this macro invocation
+    |
+    = note: this warning originates in the macro `tuple_impls` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/tree.rs:590:53
+    |
+590 |             fn fields(&self, visitor: &mut Visitor, index: usize) {
+    |                                                     ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+626 | tuple_impls! { (A , 0) ,(B, 1), (C, 2) ,(D, 3) ,(E, 4) ,(F, 5) ,(G, 6) }
+    | ------------------------------------------------------------------------ in this macro invocation
+    |
+    = note: this warning originates in the macro `tuple_impls` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/tree.rs:608:51
+    |
+608 |             fn cmps(&self, visitor: &mut Visitor, index: usize, val: (u64, u64)) {
+    |                                                   ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+626 | tuple_impls! { (A , 0) ,(B, 1), (C, 2) ,(D, 3) ,(E, 4) ,(F, 5) ,(G, 6) }
+    | ------------------------------------------------------------------------ in this macro invocation
+    |
+    = note: this warning originates in the macro `tuple_impls` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `other`
+   --> thesis/src/tree.rs:578:51
+    |
+578 |                        MutationType::SpliceAppend(other) => {
+    |                                                   ^^^^^ help: if this is intentional, prefix it with an underscore: `_other`
+...
+627 | tuple_impls! { (A , 0) ,(B, 1), (C, 2) ,(D, 3) ,(E, 4) ,(F, 5) ,(G, 6) ,(H, 7) }
+    | -------------------------------------------------------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `tuple_impls` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/tree.rs:590:53
+    |
+590 |             fn fields(&self, visitor: &mut Visitor, index: usize) {
+    |                                                     ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+627 | tuple_impls! { (A , 0) ,(B, 1), (C, 2) ,(D, 3) ,(E, 4) ,(F, 5) ,(G, 6) ,(H, 7) }
+    | -------------------------------------------------------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `tuple_impls` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/tree.rs:608:51
+    |
+608 |             fn cmps(&self, visitor: &mut Visitor, index: usize, val: (u64, u64)) {
+    |                                                   ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+627 | tuple_impls! { (A , 0) ,(B, 1), (C, 2) ,(D, 3) ,(E, 4) ,(F, 5) ,(G, 6) ,(H, 7) }
+    | -------------------------------------------------------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `tuple_impls` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `other`
+   --> thesis/src/tree.rs:578:51
+    |
+578 |                        MutationType::SpliceAppend(other) => {
+    |                                                   ^^^^^ help: if this is intentional, prefix it with an underscore: `_other`
+...
+628 | tuple_impls! { (A , 0) ,(B, 1), (C, 2) ,(D, 3) ,(E, 4) ,(F, 5) ,(G, 6) ,(H, 7) ,(I, 8) }
+    | ---------------------------------------------------------------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `tuple_impls` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/tree.rs:590:53
+    |
+590 |             fn fields(&self, visitor: &mut Visitor, index: usize) {
+    |                                                     ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+628 | tuple_impls! { (A , 0) ,(B, 1), (C, 2) ,(D, 3) ,(E, 4) ,(F, 5) ,(G, 6) ,(H, 7) ,(I, 8) }
+    | ---------------------------------------------------------------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `tuple_impls` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/tree.rs:608:51
+    |
+608 |             fn cmps(&self, visitor: &mut Visitor, index: usize, val: (u64, u64)) {
+    |                                                   ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+628 | tuple_impls! { (A , 0) ,(B, 1), (C, 2) ,(D, 3) ,(E, 4) ,(F, 5) ,(G, 6) ,(H, 7) ,(I, 8) }
+    | ---------------------------------------------------------------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `tuple_impls` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `other`
+   --> thesis/src/tree.rs:578:51
+    |
+578 |                        MutationType::SpliceAppend(other) => {
+    |                                                   ^^^^^ help: if this is intentional, prefix it with an underscore: `_other`
+...
+629 | tuple_impls! { (A , 0) ,(B, 1), (C, 2) ,(D, 3) ,(E, 4) ,(F, 5) ,(G, 6) ,(H, 7) ,(I, 8) ,(J, 9) }
+    | ------------------------------------------------------------------------------------------------ in this macro invocation
+    |
+    = note: this warning originates in the macro `tuple_impls` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/tree.rs:590:53
+    |
+590 |             fn fields(&self, visitor: &mut Visitor, index: usize) {
+    |                                                     ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+629 | tuple_impls! { (A , 0) ,(B, 1), (C, 2) ,(D, 3) ,(E, 4) ,(F, 5) ,(G, 6) ,(H, 7) ,(I, 8) ,(J, 9) }
+    | ------------------------------------------------------------------------------------------------ in this macro invocation
+    |
+    = note: this warning originates in the macro `tuple_impls` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/tree.rs:608:51
+    |
+608 |             fn cmps(&self, visitor: &mut Visitor, index: usize, val: (u64, u64)) {
+    |                                                   ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+629 | tuple_impls! { (A , 0) ,(B, 1), (C, 2) ,(D, 3) ,(E, 4) ,(F, 5) ,(G, 6) ,(H, 7) ,(I, 8) ,(J, 9) }
+    | ------------------------------------------------------------------------------------------------ in this macro invocation
+    |
+    = note: this warning originates in the macro `tuple_impls` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `other`
+   --> thesis/src/tree.rs:578:51
+    |
+578 |                        MutationType::SpliceAppend(other) => {
+    |                                                   ^^^^^ help: if this is intentional, prefix it with an underscore: `_other`
+...
+630 | tuple_impls! { (A , 0) ,(B, 1), (C, 2) ,(D, 3) ,(E, 4) ,(F, 5) ,(G, 6) ,(H, 7) ,(I, 8) ,(J, 9), (K, 10)}
+    | -------------------------------------------------------------------------------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `tuple_impls` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/tree.rs:590:53
+    |
+590 |             fn fields(&self, visitor: &mut Visitor, index: usize) {
+    |                                                     ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+630 | tuple_impls! { (A , 0) ,(B, 1), (C, 2) ,(D, 3) ,(E, 4) ,(F, 5) ,(G, 6) ,(H, 7) ,(I, 8) ,(J, 9), (K, 10)}
+    | -------------------------------------------------------------------------------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `tuple_impls` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/tree.rs:608:51
+    |
+608 |             fn cmps(&self, visitor: &mut Visitor, index: usize, val: (u64, u64)) {
+    |                                                   ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+630 | tuple_impls! { (A , 0) ,(B, 1), (C, 2) ,(D, 3) ,(E, 4) ,(F, 5) ,(G, 6) ,(H, 7) ,(I, 8) ,(J, 9), (K, 10)}
+    | -------------------------------------------------------------------------------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `tuple_impls` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `other`
+   --> thesis/src/tree.rs:578:51
+    |
+578 |                        MutationType::SpliceAppend(other) => {
+    |                                                   ^^^^^ help: if this is intentional, prefix it with an underscore: `_other`
+...
+631 | tuple_impls! { (A , 0) ,(B, 1), (C, 2) ,(D, 3) ,(E, 4) ,(F, 5) ,(G, 6) ,(H, 7) ,(I, 8) ,(J, 9) ,(K , 10) ,(L, 11)}
+    | ------------------------------------------------------------------------------------------------------------------ in this macro invocation
+    |
+    = note: this warning originates in the macro `tuple_impls` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/tree.rs:590:53
+    |
+590 |             fn fields(&self, visitor: &mut Visitor, index: usize) {
+    |                                                     ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+631 | tuple_impls! { (A , 0) ,(B, 1), (C, 2) ,(D, 3) ,(E, 4) ,(F, 5) ,(G, 6) ,(H, 7) ,(I, 8) ,(J, 9) ,(K , 10) ,(L, 11)}
+    | ------------------------------------------------------------------------------------------------------------------ in this macro invocation
+    |
+    = note: this warning originates in the macro `tuple_impls` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/tree.rs:608:51
+    |
+608 |             fn cmps(&self, visitor: &mut Visitor, index: usize, val: (u64, u64)) {
+    |                                                   ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+631 | tuple_impls! { (A , 0) ,(B, 1), (C, 2) ,(D, 3) ,(E, 4) ,(F, 5) ,(G, 6) ,(H, 7) ,(I, 8) ,(J, 9) ,(K , 10) ,(L, 11)}
+    | ------------------------------------------------------------------------------------------------------------------ in this macro invocation
+    |
+    = note: this warning originates in the macro `tuple_impls` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `depth`
+   --> thesis/src/tree.rs:636:42
+    |
+636 |             fn generate(v: &mut Visitor, depth: &mut usize, cur_depth: &mut usize) -> Self {
+    |                                          ^^^^^ help: if this is intentional, prefix it with an underscore: `_depth`
+...
+656 | impl_generate_simple!(f32, 4);
+    | ----------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_generate_simple` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `cur_depth`
+   --> thesis/src/tree.rs:636:61
+    |
+636 |             fn generate(v: &mut Visitor, depth: &mut usize, cur_depth: &mut usize) -> Self {
+    |                                                             ^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_cur_depth`
+...
+656 | impl_generate_simple!(f32, 4);
+    | ----------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_generate_simple` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/tree.rs:639:45
+    |
+639 |             fn cmps(&self, v: &mut Visitor, index: usize, val: (u64, u64)) {
+    |                                             ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+656 | impl_generate_simple!(f32, 4);
+    | ----------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_generate_simple` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `depth`
+   --> thesis/src/tree.rs:636:42
+    |
+636 |             fn generate(v: &mut Visitor, depth: &mut usize, cur_depth: &mut usize) -> Self {
+    |                                          ^^^^^ help: if this is intentional, prefix it with an underscore: `_depth`
+...
+657 | impl_generate_simple!(f64, 8);
+    | ----------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_generate_simple` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `cur_depth`
+   --> thesis/src/tree.rs:636:61
+    |
+636 |             fn generate(v: &mut Visitor, depth: &mut usize, cur_depth: &mut usize) -> Self {
+    |                                                             ^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_cur_depth`
+...
+657 | impl_generate_simple!(f64, 8);
+    | ----------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_generate_simple` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/tree.rs:639:45
+    |
+639 |             fn cmps(&self, v: &mut Visitor, index: usize, val: (u64, u64)) {
+    |                                             ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+657 | impl_generate_simple!(f64, 8);
+    | ----------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_generate_simple` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `depth`
+   --> thesis/src/tree.rs:636:42
+    |
+636 |             fn generate(v: &mut Visitor, depth: &mut usize, cur_depth: &mut usize) -> Self {
+    |                                          ^^^^^ help: if this is intentional, prefix it with an underscore: `_depth`
+...
+659 | impl_generate_simple!(u8, 1);
+    | ---------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_generate_simple` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `cur_depth`
+   --> thesis/src/tree.rs:636:61
+    |
+636 |             fn generate(v: &mut Visitor, depth: &mut usize, cur_depth: &mut usize) -> Self {
+    |                                                             ^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_cur_depth`
+...
+659 | impl_generate_simple!(u8, 1);
+    | ---------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_generate_simple` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/tree.rs:639:45
+    |
+639 |             fn cmps(&self, v: &mut Visitor, index: usize, val: (u64, u64)) {
+    |                                             ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+659 | impl_generate_simple!(u8, 1);
+    | ---------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_generate_simple` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `depth`
+   --> thesis/src/tree.rs:636:42
+    |
+636 |             fn generate(v: &mut Visitor, depth: &mut usize, cur_depth: &mut usize) -> Self {
+    |                                          ^^^^^ help: if this is intentional, prefix it with an underscore: `_depth`
+...
+660 | impl_generate_simple!(u16, 2);
+    | ----------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_generate_simple` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `cur_depth`
+   --> thesis/src/tree.rs:636:61
+    |
+636 |             fn generate(v: &mut Visitor, depth: &mut usize, cur_depth: &mut usize) -> Self {
+    |                                                             ^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_cur_depth`
+...
+660 | impl_generate_simple!(u16, 2);
+    | ----------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_generate_simple` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/tree.rs:639:45
+    |
+639 |             fn cmps(&self, v: &mut Visitor, index: usize, val: (u64, u64)) {
+    |                                             ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+660 | impl_generate_simple!(u16, 2);
+    | ----------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_generate_simple` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `depth`
+   --> thesis/src/tree.rs:636:42
+    |
+636 |             fn generate(v: &mut Visitor, depth: &mut usize, cur_depth: &mut usize) -> Self {
+    |                                          ^^^^^ help: if this is intentional, prefix it with an underscore: `_depth`
+...
+661 | impl_generate_simple!(u32, 4);
+    | ----------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_generate_simple` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `cur_depth`
+   --> thesis/src/tree.rs:636:61
+    |
+636 |             fn generate(v: &mut Visitor, depth: &mut usize, cur_depth: &mut usize) -> Self {
+    |                                                             ^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_cur_depth`
+...
+661 | impl_generate_simple!(u32, 4);
+    | ----------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_generate_simple` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/tree.rs:639:45
+    |
+639 |             fn cmps(&self, v: &mut Visitor, index: usize, val: (u64, u64)) {
+    |                                             ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+661 | impl_generate_simple!(u32, 4);
+    | ----------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_generate_simple` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `depth`
+   --> thesis/src/tree.rs:636:42
+    |
+636 |             fn generate(v: &mut Visitor, depth: &mut usize, cur_depth: &mut usize) -> Self {
+    |                                          ^^^^^ help: if this is intentional, prefix it with an underscore: `_depth`
+...
+662 | impl_generate_simple!(u64, 8);
+    | ----------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_generate_simple` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `cur_depth`
+   --> thesis/src/tree.rs:636:61
+    |
+636 |             fn generate(v: &mut Visitor, depth: &mut usize, cur_depth: &mut usize) -> Self {
+    |                                                             ^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_cur_depth`
+...
+662 | impl_generate_simple!(u64, 8);
+    | ----------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_generate_simple` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/tree.rs:639:45
+    |
+639 |             fn cmps(&self, v: &mut Visitor, index: usize, val: (u64, u64)) {
+    |                                             ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+662 | impl_generate_simple!(u64, 8);
+    | ----------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_generate_simple` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `depth`
+   --> thesis/src/tree.rs:636:42
+    |
+636 |             fn generate(v: &mut Visitor, depth: &mut usize, cur_depth: &mut usize) -> Self {
+    |                                          ^^^^^ help: if this is intentional, prefix it with an underscore: `_depth`
+...
+663 | impl_generate_simple!(u128, 32);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_generate_simple` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `cur_depth`
+   --> thesis/src/tree.rs:636:61
+    |
+636 |             fn generate(v: &mut Visitor, depth: &mut usize, cur_depth: &mut usize) -> Self {
+    |                                                             ^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_cur_depth`
+...
+663 | impl_generate_simple!(u128, 32);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_generate_simple` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/tree.rs:639:45
+    |
+639 |             fn cmps(&self, v: &mut Visitor, index: usize, val: (u64, u64)) {
+    |                                             ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+663 | impl_generate_simple!(u128, 32);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_generate_simple` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `depth`
+   --> thesis/src/tree.rs:636:42
+    |
+636 |             fn generate(v: &mut Visitor, depth: &mut usize, cur_depth: &mut usize) -> Self {
+    |                                          ^^^^^ help: if this is intentional, prefix it with an underscore: `_depth`
+...
+665 | impl_generate_simple!(i8, 1);
+    | ---------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_generate_simple` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `cur_depth`
+   --> thesis/src/tree.rs:636:61
+    |
+636 |             fn generate(v: &mut Visitor, depth: &mut usize, cur_depth: &mut usize) -> Self {
+    |                                                             ^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_cur_depth`
+...
+665 | impl_generate_simple!(i8, 1);
+    | ---------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_generate_simple` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/tree.rs:639:45
+    |
+639 |             fn cmps(&self, v: &mut Visitor, index: usize, val: (u64, u64)) {
+    |                                             ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+665 | impl_generate_simple!(i8, 1);
+    | ---------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_generate_simple` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `depth`
+   --> thesis/src/tree.rs:636:42
+    |
+636 |             fn generate(v: &mut Visitor, depth: &mut usize, cur_depth: &mut usize) -> Self {
+    |                                          ^^^^^ help: if this is intentional, prefix it with an underscore: `_depth`
+...
+666 | impl_generate_simple!(i16, 2);
+    | ----------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_generate_simple` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `cur_depth`
+   --> thesis/src/tree.rs:636:61
+    |
+636 |             fn generate(v: &mut Visitor, depth: &mut usize, cur_depth: &mut usize) -> Self {
+    |                                                             ^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_cur_depth`
+...
+666 | impl_generate_simple!(i16, 2);
+    | ----------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_generate_simple` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/tree.rs:639:45
+    |
+639 |             fn cmps(&self, v: &mut Visitor, index: usize, val: (u64, u64)) {
+    |                                             ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+666 | impl_generate_simple!(i16, 2);
+    | ----------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_generate_simple` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `depth`
+   --> thesis/src/tree.rs:636:42
+    |
+636 |             fn generate(v: &mut Visitor, depth: &mut usize, cur_depth: &mut usize) -> Self {
+    |                                          ^^^^^ help: if this is intentional, prefix it with an underscore: `_depth`
+...
+667 | impl_generate_simple!(i32, 4);
+    | ----------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_generate_simple` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `cur_depth`
+   --> thesis/src/tree.rs:636:61
+    |
+636 |             fn generate(v: &mut Visitor, depth: &mut usize, cur_depth: &mut usize) -> Self {
+    |                                                             ^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_cur_depth`
+...
+667 | impl_generate_simple!(i32, 4);
+    | ----------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_generate_simple` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/tree.rs:639:45
+    |
+639 |             fn cmps(&self, v: &mut Visitor, index: usize, val: (u64, u64)) {
+    |                                             ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+667 | impl_generate_simple!(i32, 4);
+    | ----------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_generate_simple` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `depth`
+   --> thesis/src/tree.rs:636:42
+    |
+636 |             fn generate(v: &mut Visitor, depth: &mut usize, cur_depth: &mut usize) -> Self {
+    |                                          ^^^^^ help: if this is intentional, prefix it with an underscore: `_depth`
+...
+668 | impl_generate_simple!(i64, 8);
+    | ----------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_generate_simple` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `cur_depth`
+   --> thesis/src/tree.rs:636:61
+    |
+636 |             fn generate(v: &mut Visitor, depth: &mut usize, cur_depth: &mut usize) -> Self {
+    |                                                             ^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_cur_depth`
+...
+668 | impl_generate_simple!(i64, 8);
+    | ----------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_generate_simple` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/tree.rs:639:45
+    |
+639 |             fn cmps(&self, v: &mut Visitor, index: usize, val: (u64, u64)) {
+    |                                             ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+668 | impl_generate_simple!(i64, 8);
+    | ----------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_generate_simple` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `depth`
+   --> thesis/src/tree.rs:636:42
+    |
+636 |             fn generate(v: &mut Visitor, depth: &mut usize, cur_depth: &mut usize) -> Self {
+    |                                          ^^^^^ help: if this is intentional, prefix it with an underscore: `_depth`
+...
+669 | impl_generate_simple!(i128, 32);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_generate_simple` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `cur_depth`
+   --> thesis/src/tree.rs:636:61
+    |
+636 |             fn generate(v: &mut Visitor, depth: &mut usize, cur_depth: &mut usize) -> Self {
+    |                                                             ^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_cur_depth`
+...
+669 | impl_generate_simple!(i128, 32);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_generate_simple` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/tree.rs:639:45
+    |
+639 |             fn cmps(&self, v: &mut Visitor, index: usize, val: (u64, u64)) {
+    |                                             ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+669 | impl_generate_simple!(i128, 32);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_generate_simple` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `depth`
+   --> thesis/src/tree.rs:636:42
+    |
+636 |             fn generate(v: &mut Visitor, depth: &mut usize, cur_depth: &mut usize) -> Self {
+    |                                          ^^^^^ help: if this is intentional, prefix it with an underscore: `_depth`
+...
+673 | impl_generate_simple!(isize, 8);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_generate_simple` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `cur_depth`
+   --> thesis/src/tree.rs:636:61
+    |
+636 |             fn generate(v: &mut Visitor, depth: &mut usize, cur_depth: &mut usize) -> Self {
+    |                                                             ^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_cur_depth`
+...
+673 | impl_generate_simple!(isize, 8);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_generate_simple` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/tree.rs:639:45
+    |
+639 |             fn cmps(&self, v: &mut Visitor, index: usize, val: (u64, u64)) {
+    |                                             ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+673 | impl_generate_simple!(isize, 8);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_generate_simple` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `depth`
+   --> thesis/src/tree.rs:636:42
+    |
+636 |             fn generate(v: &mut Visitor, depth: &mut usize, cur_depth: &mut usize) -> Self {
+    |                                          ^^^^^ help: if this is intentional, prefix it with an underscore: `_depth`
+...
+675 | impl_generate_simple!(usize, 8);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_generate_simple` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `cur_depth`
+   --> thesis/src/tree.rs:636:61
+    |
+636 |             fn generate(v: &mut Visitor, depth: &mut usize, cur_depth: &mut usize) -> Self {
+    |                                                             ^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_cur_depth`
+...
+675 | impl_generate_simple!(usize, 8);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_generate_simple` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `index`
+   --> thesis/src/tree.rs:639:45
+    |
+639 |             fn cmps(&self, v: &mut Visitor, index: usize, val: (u64, u64)) {
+    |                                             ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+...
+675 | impl_generate_simple!(usize, 8);
+    | ------------------------------- in this macro invocation
+    |
+    = note: this warning originates in the macro `impl_generate_simple` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `depth`
+  --> thesis/src/visitor.rs:74:42
+   |
+74 |     pub fn coinflip_with_prob(&mut self, depth: &u64) -> bool {
+   |                                          ^^^^^ help: if this is intentional, prefix it with an underscore: `_depth`
+
+For more information about this error, try `rustc --explain E0277`.
+warning: `thesis` (lib) generated 192 warnings
+error: could not compile `thesis` (lib) due to 2 previous errors; 192 warnings emitted

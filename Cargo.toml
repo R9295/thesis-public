@@ -1,0 +1,11 @@
+[workspace]
+edition = "2021"
+
+members = [
+	"thesis", 
+	"thesis_derive", 
+	"libafl-fuzzer", 
+	"unparser-php", 
+	"unparser-ruby", 
+	"unparser-js", 
+]

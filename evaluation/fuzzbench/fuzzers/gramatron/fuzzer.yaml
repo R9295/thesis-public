@@ -1,0 +1,4 @@
+allowed_benchmarks:
+  - jerryscript_fuzz
+  - php_fuzz
+  - mruby_fuzz
