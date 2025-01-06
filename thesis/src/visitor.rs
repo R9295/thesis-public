@@ -129,7 +129,7 @@ impl Visitor {
         cmps
     }
 
-    pub fn fields(&mut self) -> Vec<Vec<((usize, NodeType), Id)>> {
+    pub fn nodes(&mut self) -> Vec<Vec<((usize, NodeType), Id)>> {
         let fields = self.fields.clone();
         self.fields = vec![];
         self.fields_stack = vec![];

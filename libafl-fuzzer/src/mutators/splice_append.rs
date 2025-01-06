@@ -24,10 +24,10 @@ where
 {
     fn mutate(&mut self, state: &mut S, input: &mut I) -> Result<MutationResult, libafl::Error> {
         let metadata = state.metadata::<Context>().unwrap();
-        input.fields(&mut self.visitor.borrow_mut(), 0);
-        let mut fields = self.visitor.borrow_mut().fields();
-        let field_splice_index = self.visitor.borrow_mut().random_range(0, fields.len() - 1);
-        let field = &fields[field_splice_index];
+        input.nodes(&mut self.visitor.borrow_mut(), 0);
+        let mut nodes = self.visitor.borrow_mut().nodes();
+        let field_splice_index = self.visitor.borrow_mut().random_range(0, nodes.len() - 1);
+        let field = &nodes[field_splice_index];
         let ((id, node_ty), ty) = field.last().unwrap();
         if let thesis::NodeType::Iterable(field_len, inner_ty) = node_ty {
             if let Some(possible_splices) = metadata.get_inputs_for_type(&inner_ty) {

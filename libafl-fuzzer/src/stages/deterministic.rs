@@ -57,10 +57,10 @@ where
             return Ok(());
         }
         let input = state.current_input_cloned()?;
-        input.fields(&mut self.visitor.borrow_mut(), 0);
-        let mut fields = self.visitor.borrow_mut().fields();
+        input.nodes(&mut self.visitor.borrow_mut(), 0);
+        let mut nodes = self.visitor.borrow_mut().nodes();
         // generate replace every field
-        for field in fields {
+        for field in nodes {
             let mut unmutated_input = state.current_input_cloned()?;
             let mut path = VecDeque::from_iter(field.iter().map(|(i, ty)| i.0));
             unmutated_input.__mutate(

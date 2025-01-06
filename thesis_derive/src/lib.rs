@@ -14,10 +14,10 @@ pub fn my_derive_proc_macro(input: proc_macro::TokenStream) -> proc_macro::Token
     let root_name = parsed.ident;
     let expanded = match parsed.data {
         Data::Struct(ref data) => {
-            let fields = get_fields(&data.fields)
-                .expect("Structs cannot have no fields according to borsh!");
-            let is_named = matches!(data.fields, syn::Fields::Named(_));
-            let parsed = parse_fields(fields);
+            let nodes = get_nodes(&data.nodes)
+                .expect("Structs cannot have no nodes according to borsh!");
+            let is_named = matches!(data.nodes, syn::nodes::Named(_));
+            let parsed = parse_nodes(nodes);
             let generate = construct_generate_function_struct(&parsed, is_named);
 
             let serialized_ids = parsed.iter().map(|field| {
@@ -33,8 +33,8 @@ pub fn my_derive_proc_macro(input: proc_macro::TokenStream) -> proc_macro::Token
             let serialized_recursive = parsed.iter().map(|field| {
                 let name = field.get_name(is_named);
                 quote! {
-                    if let Some(fields) = self.#name.serialized() {
-                        vector.extend(fields);
+                    if let Some(nodes) = self.#name.serialized() {
+                        vector.extend(nodes);
                     }
                 }
             });
@@ -50,7 +50,7 @@ pub fn my_derive_proc_macro(input: proc_macro::TokenStream) -> proc_macro::Token
                     } else {
                         v.register_field(((#id, thesis::NodeType::NonRecursive), <#ty>::id()));
                     }
-                    self.#name.fields(v, 0);
+                    self.#name.nodes(v, 0);
                     v.pop_field();
                 }
             });
@@ -91,7 +91,7 @@ pub fn my_derive_proc_macro(input: proc_macro::TokenStream) -> proc_macro::Token
                     }
 
 
-                    fn fields(&self, v: &mut ::thesis::Visitor, index: usize) {
+                    fn nodes(&self, v: &mut ::thesis::Visitor, index: usize) {
                         #(#register_field)*;
                     }
 
@@ -138,7 +138,7 @@ pub fn my_derive_proc_macro(input: proc_macro::TokenStream) -> proc_macro::Token
         Data::Enum(ref data) => {
             let mut generate = vec![];
             let mut min_size = vec![];
-            let mut fn_fields = vec![];
+            let mut fn_nodes = vec![];
             let mut inner_mutate = vec![];
             let mut serialized = vec![];
             let mut fn_cmps = vec![];
@@ -158,17 +158,17 @@ pub fn my_derive_proc_macro(input: proc_macro::TokenStream) -> proc_macro::Token
                         }
                     }
                 }
-                let fields = get_fields(&variant.fields);
-                let is_named = matches!(variant.fields, syn::Fields::Named(_));
+                let nodes = get_nodes(&variant.nodes);
+                let is_named = matches!(variant.nodes, syn::nodes::Named(_));
                 if is_recursive {
                     recursive_variants.push(quote! {#i,});
                 } else {
                     non_recursive_variants.push(quote! {#i,});
                 }
 
-                let variant_min_size = match fields {
-                    Some(fields) => {
-                        let field_min_size = fields.iter().map(|f| {
+                let variant_min_size = match nodes {
+                    Some(nodes) => {
+                        let field_min_size = nodes.iter().map(|f| {
                             let ty = &f.ty;
                             let tokens = quote! {#ty}.to_string().replace(" ", "");
                             // only accounting for Box atm
@@ -183,11 +183,11 @@ pub fn my_derive_proc_macro(input: proc_macro::TokenStream) -> proc_macro::Token
                 };
                 min_size.push(variant_min_size);
 
-                let fields = match fields {
-                    Some(fields) => parse_fields(fields),
+                let nodes = match nodes {
+                    Some(nodes) => parse_nodes(nodes),
                     None => vec![],
                 };
-                are_we_recursive.push(if !fields.is_empty() {
+                are_we_recursive.push(if !nodes.is_empty() {
                     if is_named {
                         quote! {#root_name::#variant_name{..} => #is_recursive}
                     } else {
@@ -199,15 +199,15 @@ pub fn my_derive_proc_macro(input: proc_macro::TokenStream) -> proc_macro::Token
                     }
                 });
                 let enum_variant_constructor =
-                    construct_generate_function_enum(&fields, is_named, &root_name, variant_name);
+                    construct_generate_function_enum(&nodes, is_named, &root_name, variant_name);
                 generate.push(quote! {
                     #i => {
                         #enum_variant_constructor
                     }
                 });
 
-                let field_fn = if !fields.is_empty() {
-                    let variant_fields_register = fields.iter().map(|field| {
+                let field_fn = if !nodes.is_empty() {
+                    let variant_nodes_register = nodes.iter().map(|field| {
                         let name = &field.name;
                         let ty = &field.ty;
                         let id = &field.id;
@@ -220,11 +220,11 @@ pub fn my_derive_proc_macro(input: proc_macro::TokenStream) -> proc_macro::Token
                             } else {
                                 v.register_field(((#id, thesis::NodeType::NonRecursive), <#ty>::id()));
                             }
-                            #name.fields(v, #id);
+                            #name.nodes(v, #id);
                             v.pop_field();
                         }
                     });
-                    let field_names = fields.iter().map(|field| {
+                    let field_names = nodes.iter().map(|field| {
                         let name = &field.name;
                         quote! {#name}
                     });
@@ -240,7 +240,7 @@ pub fn my_derive_proc_macro(input: proc_macro::TokenStream) -> proc_macro::Token
 
                             v.register_field_stack(((#i, thesis::NodeType::NonRecursive), Self::id()));
 
-                            #(#variant_fields_register)*
+                            #(#variant_nodes_register)*
 
                             v.pop_field();
                         }
@@ -251,10 +251,10 @@ pub fn my_derive_proc_macro(input: proc_macro::TokenStream) -> proc_macro::Token
                     })
                 };
 
-                fn_fields.push(field_fn);
+                fn_nodes.push(field_fn);
 
-                let fn_cmp = if !fields.is_empty() {
-                    let variant_fields_cmp = fields.iter().map(|field| {
+                let fn_cmp = if !nodes.is_empty() {
+                    let variant_nodes_cmp = nodes.iter().map(|field| {
                         let name = &field.name;
                         let ty = &field.ty;
                         let id = &field.id;
@@ -269,7 +269,7 @@ pub fn my_derive_proc_macro(input: proc_macro::TokenStream) -> proc_macro::Token
                             v.pop_field();
                         }
                     });
-                    let field_names = fields.iter().map(|field| {
+                    let field_names = nodes.iter().map(|field| {
                         let name = &field.name;
                         quote! {#name}
                     });
@@ -283,7 +283,7 @@ pub fn my_derive_proc_macro(input: proc_macro::TokenStream) -> proc_macro::Token
                     Some(quote! {
                             #match_arm {
                             v.register_field_stack(((#i, thesis::NodeType::NonRecursive), Self::id()));
-                            #(#variant_fields_cmp)*
+                            #(#variant_nodes_cmp)*
                             v.pop_field();
                         }
                     })
@@ -294,12 +294,12 @@ pub fn my_derive_proc_macro(input: proc_macro::TokenStream) -> proc_macro::Token
                 };
 
                 fn_cmps.push(fn_cmp);
-                let inner_mutate_variant = if !fields.is_empty() {
-                    let field_names = fields.iter().map(|field| {
+                let inner_mutate_variant = if !nodes.is_empty() {
+                    let field_names = nodes.iter().map(|field| {
                         let name = &field.name;
                         quote! {#name}
                     });
-                    let variant_fields_mutate = fields.iter().map(|field| {
+                    let variant_nodes_mutate = nodes.iter().map(|field| {
                         let name = &field.name;
                         let id = &field.id;
                         quote! {
@@ -320,7 +320,7 @@ pub fn my_derive_proc_macro(input: proc_macro::TokenStream) -> proc_macro::Token
                          #match_arm {
                             if let Some(popped) = path.pop_front() {
                              match popped {
-                                 #(#variant_fields_mutate)*
+                                 #(#variant_nodes_mutate)*
                                  _ => {
                                      unreachable!("____FU1zlV0c")
                                  }
@@ -339,8 +339,8 @@ pub fn my_derive_proc_macro(input: proc_macro::TokenStream) -> proc_macro::Token
 
                 inner_mutate.push(inner_mutate_variant);
 
-                if !fields.is_empty() {
-                    let field_names = fields.iter().map(|field| {
+                if !nodes.is_empty() {
+                    let field_names = nodes.iter().map(|field| {
                         let name = &field.name;
                         quote! {#name}
                     });
@@ -349,7 +349,7 @@ pub fn my_derive_proc_macro(input: proc_macro::TokenStream) -> proc_macro::Token
                     } else {
                         quote! {Self::#variant_name(#(#field_names),*) => }
                     };
-                    let serialized_fields = fields.iter().map(|field| {
+                    let serialized_nodes = nodes.iter().map(|field| {
                         let name = &field.name;
                         let ty = &field.ty;
                         quote! {
@@ -357,14 +357,14 @@ pub fn my_derive_proc_macro(input: proc_macro::TokenStream) -> proc_macro::Token
                             if len == 0 {
                                 vector.push((::thesis::serialize(&#name), <#ty>::id()));
                             }
-                            if let Some(fields) = #name.serialized() {
-                                vector.extend(fields);
+                            if let Some(nodes) = #name.serialized() {
+                                vector.extend(nodes);
                             }
                         }
                     });
                     let serialized_variant = quote! {
                     #match_arm {
-                        #(#serialized_fields)*
+                        #(#serialized_nodes)*
                     }
                     };
                     serialized.push(serialized_variant);
@@ -413,7 +413,7 @@ pub fn my_derive_proc_macro(input: proc_macro::TokenStream) -> proc_macro::Token
                 }
             };
             // Generate the Node trait implementation for the Enum
-            // TODO: can optimize this if the enum has only two fields like (Result)
+            // TODO: can optimize this if the enum has only two nodes like (Result)
             let node_impl = quote! {
                 impl ::thesis::Node for #root_name {
                     fn generate(v: &mut ::thesis::Visitor, depth: &mut usize, cur_depth: &mut usize) -> Self {
@@ -426,8 +426,8 @@ pub fn my_derive_proc_macro(input: proc_macro::TokenStream) -> proc_macro::Token
                     }
 
 
-                    fn fields(&self, v: &mut ::thesis::Visitor, index: usize) {
-                        #(#fn_fields)*;
+                    fn nodes(&self, v: &mut ::thesis::Visitor, index: usize) {
+                        #(#fn_nodes)*;
                     }
 
                     fn cmps(&self, v: &mut ::thesis::Visitor, index: usize, val: (u64, u64)) {
@@ -486,8 +486,8 @@ pub fn my_derive_proc_macro(input: proc_macro::TokenStream) -> proc_macro::Token
     TokenStream::from(expanded)
 }
 
-fn parse_fields(fields: &syn::punctuated::Punctuated<syn::Field, Comma>) -> Vec<GrammarField> {
-    fields
+fn parse_nodes(nodes: &syn::punctuated::Punctuated<syn::Field, Comma>) -> Vec<GrammarField> {
+    nodes
         .iter()
         .enumerate()
         .map(|(id, field)| {
@@ -508,8 +508,8 @@ fn parse_fields(fields: &syn::punctuated::Punctuated<syn::Field, Comma>) -> Vec<
 
 /// returns
 /// let _<field_id> = <generate_function>;
-fn get_field_defs(fields: &Vec<GrammarField>) -> Vec<proc_macro2::TokenStream> {
-    fields
+fn get_field_defs(nodes: &Vec<GrammarField>) -> Vec<proc_macro2::TokenStream> {
+    nodes
         .iter()
         .map(|field| {
             let attr_iterator = field.attrs.iter();
@@ -570,11 +570,11 @@ fn get_field_defs(fields: &Vec<GrammarField>) -> Vec<proc_macro2::TokenStream> {
 }
 
 fn construct_generate_function_struct(
-    fields: &Vec<GrammarField>,
+    nodes: &Vec<GrammarField>,
     is_named: bool,
 ) -> proc_macro2::TokenStream {
-    let field_defs = get_field_defs(fields);
-    let names = fields.iter().map(|field| &field.name);
+    let field_defs = get_field_defs(nodes);
+    let names = nodes.iter().map(|field| &field.name);
     // if the struct is
     // non named -> Struct(x, y, z)
     // named -> Struct{x: usize, b: usize}
@@ -592,14 +592,14 @@ fn construct_generate_function_struct(
 }
 
 fn construct_generate_function_enum(
-    fields: &Vec<GrammarField>,
+    nodes: &Vec<GrammarField>,
     is_named: bool,
     root_name: &Ident,
     variant_name: &Ident,
 ) -> proc_macro2::TokenStream {
-    if !fields.is_empty() {
-        let field_defs = get_field_defs(fields);
-        let names = fields.iter().map(|field| &field.name);
+    if !nodes.is_empty() {
+        let field_defs = get_field_defs(nodes);
+        let names = nodes.iter().map(|field| &field.name);
         // if the enum variant is
         // non named -> Enum::Variant(x, y, z)
         // named -> Enum::Variant{x: usize, b: usize}
@@ -615,7 +615,7 @@ fn construct_generate_function_enum(
             }
         }
     } else {
-        // if the num has no fields -> Enum::Variant
+        // if the num has no nodes -> Enum::Variant
         quote! {#root_name::#variant_name {}}
     }
 }
@@ -644,10 +644,10 @@ impl GrammarField {
     }
 }
 
-fn get_fields(fields: &syn::Fields) -> Option<&syn::punctuated::Punctuated<syn::Field, Comma>> {
-    match fields {
-        syn::Fields::Unnamed(FieldsUnnamed { ref unnamed, .. }) => Some(unnamed),
-        syn::Fields::Named(FieldsNamed {
+fn get_nodes(nodes: &syn::nodes) -> Option<&syn::punctuated::Punctuated<syn::Field, Comma>> {
+    match nodes {
+        syn::nodes::Unnamed(nodesUnnamed { ref unnamed, .. }) => Some(unnamed),
+        syn::nodes::Named(nodesNamed {
             brace_token: _,
             ref named,
         }) => Some(named),
@@ -664,10 +664,10 @@ pub fn to_nautilus(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
     let root_name = parsed.ident;
     let expanded = match parsed.data {
         syn::Data::Struct(ref data) => {
-            let fields = get_fields(&data.fields)
-                .expect("Structs cannot have no fields according to borsh!");
-            let is_named = matches!(data.fields, syn::Fields::Named(_));
-            let parsed = parse_fields(fields);
+            let nodes = get_nodes(&data.nodes)
+                .expect("Structs cannot have no nodes according to borsh!");
+            let is_named = matches!(data.nodes, syn::nodes::Named(_));
+            let parsed = parse_nodes(nodes);
             let nodes = parsed.iter().map(|field| {
                 let name = field.get_name(is_named);
                 let ty = type_to_nautilus(&field.ty);
@@ -688,10 +688,10 @@ pub fn to_nautilus(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
         syn::Data::Enum(ref data) => {
             let mut variants = vec![];
             for (i, variant) in data.variants.iter().enumerate() {
-                let fields = get_fields(&variant.fields);
-                let fields = match fields {
-                    Some(fields) => {
-                        let field_min_size = fields.iter().map(|f| {
+                let nodes = get_nodes(&variant.nodes);
+                let nodes = match nodes {
+                    Some(nodes) => {
+                        let field_min_size = nodes.iter().map(|f| {
                             let ty = type_to_nautilus(&f.ty);
                             quote! {
                                 {#ty}
@@ -707,7 +707,7 @@ pub fn to_nautilus(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
                     grammar.push_str(
                         &format!("ctx.add_rule(\"{{{}}}\", \"{}\")\n", 
                                     stringify!(#root_name), 
-                                    stringify!(#fields).replace(" ", "")
+                                    stringify!(#nodes).replace(" ", "")
                         )
                     );
                 })

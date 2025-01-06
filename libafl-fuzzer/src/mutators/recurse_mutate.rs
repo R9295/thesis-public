@@ -23,10 +23,10 @@ where
     S::Corpus: Corpus<Input = I>,
 {
     fn mutate(&mut self, state: &mut S, input: &mut I) -> Result<MutationResult, libafl::Error> {
-        input.fields(&mut self.visitor.borrow_mut(), 0);
-        let mut fields = self.visitor.borrow_mut().fields();
-        let field_splice_index = self.visitor.borrow_mut().random_range(0, fields.len() - 1);
-        let field = &mut fields[field_splice_index];
+        input.nodes(&mut self.visitor.borrow_mut(), 0);
+        let mut nodes = self.visitor.borrow_mut().nodes();
+        let field_splice_index = self.visitor.borrow_mut().random_range(0, nodes.len() - 1);
+        let field = &mut nodes[field_splice_index];
         let ((id, node_ty), ty) = field.last().unwrap();
         let mut bias = if self.visitor.borrow_mut().coinflip() { self.visitor.borrow().generate_depth() } else {0};
         if matches!(node_ty, thesis::NodeType::Iterable(_, _)) {

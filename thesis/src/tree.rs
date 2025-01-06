@@ -43,7 +43,7 @@ where
         None
     }
 
-    fn fields(&self, visitor: &mut Visitor, index: usize) {}
+    fn nodes(&self, visitor: &mut Visitor, index: usize) {}
 
     fn cmps(&self, visitor: &mut Visitor, index: usize, val: (u64, u64)) {}
     
@@ -98,7 +98,7 @@ where
         None
     }
 
-    fn fields(&self, visitor: &mut Visitor, index: usize) {}
+    fn nodes(&self, visitor: &mut Visitor, index: usize) {}
 
     fn cmps(&self, visitor: &mut Visitor, index: usize, val: (u64, u64)) {}
 
@@ -160,7 +160,7 @@ where
         None
     }
 
-    fn fields(&self, visitor: &mut Visitor, index: usize) {}
+    fn nodes(&self, visitor: &mut Visitor, index: usize) {}
 
     fn cmps(&self, visitor: &mut Visitor, index: usize, val: (u64, u64)) {}
 
@@ -255,10 +255,10 @@ where
         }
     }
 
-    fn fields(&self, visitor: &mut Visitor, index: usize) {
+    fn nodes(&self, visitor: &mut Visitor, index: usize) {
         visitor.register_field_stack((((index, crate::NodeType::NonRecursive)), T::id()));
         for (index, child) in self.iter().enumerate() {
-            child.fields(visitor, 0);
+            child.nodes(visitor, 0);
         }
         visitor.pop_field();
     }
@@ -347,7 +347,7 @@ where
         }
     }
 
-    fn fields(&self, visitor: &mut Visitor, index: usize) {
+    fn nodes(&self, visitor: &mut Visitor, index: usize) {
         for (index, child) in self.iter().enumerate() {
             let len = child.__len();
              if len > 0 {
@@ -357,7 +357,7 @@ where
              } else {
                  visitor.register_field_stack(((index, NodeType::NonRecursive), T::id()));
              }
-            child.fields(visitor, 0);
+            child.nodes(visitor, 0);
             visitor.pop_field();
         }
     }
@@ -399,8 +399,8 @@ where
         self.as_ref().cmps(visitor, index, val);
     }
 
-    fn fields(&self, visitor: &mut Visitor, index: usize) {
-        self.as_ref().fields(visitor, index);
+    fn nodes(&self, visitor: &mut Visitor, index: usize) {
+        self.as_ref().nodes(visitor, index);
     }
 
     fn __mutate(&mut self, ty: &mut MutationType, visitor: &mut Visitor, path: VecDeque<usize>) {
@@ -453,8 +453,8 @@ where
     fn serialized(&self) -> Option<Vec<(Vec<u8>, Id)>> {
         if let Some(inner) = self {
             let mut vector = vec![(serialize(&inner), T::id())];
-            if let Some(inner_fields) = inner.serialized() {
-                vector.extend(inner_fields)
+            if let Some(inner_nodes) = inner.serialized() {
+                vector.extend(inner_nodes)
             }
             Some(vector)
         } else {
@@ -462,7 +462,7 @@ where
         }
     }
 
-    fn fields(&self, visitor: &mut Visitor, index: usize) {
+    fn nodes(&self, visitor: &mut Visitor, index: usize) {
         if let Some(inner) = self {
             let len = inner.__len();
              if len > 0 {
@@ -472,7 +472,7 @@ where
              } else {
                  visitor.register_field_stack(((index, NodeType::NonRecursive), T::id()));
              }
-            inner.fields(visitor, 0);
+            inner.nodes(visitor, 0);
             visitor.pop_field();
         }
     }
@@ -538,14 +538,14 @@ where
     fn serialized(&self) -> Option<Vec<(Vec<u8>, Id)>> {
         if let Ok(inner) = self {
             let mut vector = vec![(serialize(&inner), T::id())];
-            if let Some(inner_fields) = inner.serialized() {
-                vector.extend(inner_fields)
+            if let Some(inner_nodes) = inner.serialized() {
+                vector.extend(inner_nodes)
             }
             Some(vector)
         } else if let Err(inner) = self {
             let mut vector = vec![(serialize(&inner), T::id())];
-            if let Some(inner_fields) = inner.serialized() {
-                vector.extend(inner_fields)
+            if let Some(inner_nodes) = inner.serialized() {
+                vector.extend(inner_nodes)
             }
             Some(vector)
         } else {
@@ -553,12 +553,12 @@ where
         }
     }
 
-    fn fields(&self, visitor: &mut Visitor, index: usize) {
+    fn nodes(&self, visitor: &mut Visitor, index: usize) {
         visitor.register_field_stack(((index, NodeType::NonRecursive), Self::id()));
         if let Ok(inner) = self {
-            inner.fields(visitor, 0);
+            inner.nodes(visitor, 0);
         } else if let Err(inner) = self {
-            inner.fields(visitor, 1);
+            inner.nodes(visitor, 1);
         }
         visitor.pop_field();
     }
@@ -617,10 +617,10 @@ macro_rules! tuple_impls {
                     }
                 }
             }
-            fn fields(&self, visitor: &mut Visitor, index: usize) {
+            fn nodes(&self, visitor: &mut Visitor, index: usize) {
                 $({
                 visitor.register_field_stack(((($id, crate::NodeType::NonRecursive)), $T::id()));
-                self.$id.fields(visitor, 0);
+                self.$id.nodes(visitor, 0);
                 visitor.pop_field();
                 })*
             }

@@ -95,11 +95,11 @@ where
             .list
             .clone();
         let mut current = state.current_input_cloned().unwrap();
-        current.fields(&mut self.visitor.borrow_mut(), 0);
+        current.nodes(&mut self.visitor.borrow_mut(), 0);
         let mut skip = 0;
-        let mut fields = self.visitor.borrow_mut().fields();
+        let mut nodes = self.visitor.borrow_mut().nodes();
         loop {
-            let field = fields.pop();
+            let field = nodes.pop();
             if field.is_none() {break;}
             let field = field.unwrap();
             let ((id, node_ty), ty) = field.last().unwrap();
@@ -127,8 +127,8 @@ where
                     if map == indexes {
                         println!("RECURSIVE_MINIMIZED");
                         current = inner;
-                        current.fields(&mut self.visitor.borrow_mut(), 0);
-                        fields = self.visitor.borrow_mut().fields();
+                        current.nodes(&mut self.visitor.borrow_mut(), 0);
+                        nodes = self.visitor.borrow_mut().nodes();
                     }
             }
         }

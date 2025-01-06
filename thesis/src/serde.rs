@@ -76,11 +76,11 @@ macro_rules! impl_node_serde_array {
                     }
                 }
             }
-            fn fields(&self, visitor: &mut Visitor, index: usize) {
+            fn nodes(&self, visitor: &mut Visitor, index: usize) {
                 for (index, child) in self.iter().enumerate() {
                     visitor
                         .register_field_stack((((index, crate::NodeType::NonRecursive)), T::id()));
-                    child.fields(visitor, 0);
+                    child.nodes(visitor, 0);
                     visitor.pop_field();
                 }
             }
