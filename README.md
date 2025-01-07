@@ -58,7 +58,7 @@ cd evaluation/fuzzbench/coverage
 python3 get_results.py /tmp/fuzzbench-results/
 ```
 9. get the coverage for each trial for each fuzzer's corpus
-
+This command should be run for EVERY TRIAL of EVERY TARGET for EVERY FUZZER.
 ```
 LLVM_PROFILE_FILE="<FUZZER>.<TARGET>.<TRIAL>.profraw" ./<FUZZER>-cov \
       -timeout=0.2  \
