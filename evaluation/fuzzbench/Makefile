@@ -2113,339 +2113,6 @@ debug-builder-thesis_php-php_fuzz: .thesis_php-php_fuzz-builder-debug
 	--entrypoint "/bin/bash" \
 	-it gcr.io/fuzzbench/builders/thesis_php/php_fuzz
 
-.thesis_ruby-jerryscript_fuzz-builder-intermediate: .jerryscript_fuzz-project-builder
-	docker build \
-	--tag gcr.io/fuzzbench/builders/thesis_ruby/jerryscript_fuzz-intermediate \
-	--build-arg BUILDKIT_INLINE_CACHE=1 \
-	--cache-from gcr.io/fuzzbench/builders/thesis_ruby/jerryscript_fuzz-intermediate \
-	--build-arg parent_image=gcr.io/fuzzbench/builders/benchmark/jerryscript_fuzz \
-	--file fuzzers/thesis_ruby/builder.Dockerfile \
-	fuzzers/thesis_ruby
-
-.thesis_ruby-jerryscript_fuzz-builder-debug: .thesis_ruby-jerryscript_fuzz-builder-intermediate base-image
-	docker build \
-	--tag gcr.io/fuzzbench/builders/thesis_ruby/jerryscript_fuzz \
-	--build-arg BUILDKIT_INLINE_CACHE=1 \
-	--cache-from gcr.io/fuzzbench/builders/thesis_ruby/jerryscript_fuzz \
-	--build-arg debug_builder=1 \
-	--build-arg benchmark=jerryscript_fuzz \
-	--build-arg fuzzer=thesis_ruby \
-	--build-arg parent_image=gcr.io/fuzzbench/builders/thesis_ruby/jerryscript_fuzz-intermediate \
-	--file docker/benchmark-builder/Dockerfile \
-	.
-
-.thesis_ruby-jerryscript_fuzz-builder: .thesis_ruby-jerryscript_fuzz-builder-intermediate base-image
-	docker build \
-	--tag gcr.io/fuzzbench/builders/thesis_ruby/jerryscript_fuzz \
-	--build-arg BUILDKIT_INLINE_CACHE=1 \
-	--cache-from gcr.io/fuzzbench/builders/thesis_ruby/jerryscript_fuzz \
-	--build-arg benchmark=jerryscript_fuzz \
-	--build-arg fuzzer=thesis_ruby \
-	--build-arg parent_image=gcr.io/fuzzbench/builders/thesis_ruby/jerryscript_fuzz-intermediate \
-	--file docker/benchmark-builder/Dockerfile \
-	.
-
-.thesis_ruby-jerryscript_fuzz-intermediate-runner: .thesis_ruby-jerryscript_fuzz-builder base-image
-	docker build \
-	--tag gcr.io/fuzzbench/runners/thesis_ruby/jerryscript_fuzz-intermediate \
-	--build-arg BUILDKIT_INLINE_CACHE=1 \
-	--cache-from gcr.io/fuzzbench/runners/thesis_ruby/jerryscript_fuzz-intermediate \
-	--file fuzzers/thesis_ruby/runner.Dockerfile \
-	fuzzers/thesis_ruby
-
-.thesis_ruby-jerryscript_fuzz-runner: .thesis_ruby-jerryscript_fuzz-intermediate-runner
-	docker build \
-	--tag gcr.io/fuzzbench/runners/thesis_ruby/jerryscript_fuzz \
-	--build-arg BUILDKIT_INLINE_CACHE=1 \
-	--cache-from gcr.io/fuzzbench/runners/thesis_ruby/jerryscript_fuzz \
-	--build-arg benchmark=jerryscript_fuzz \
-	--build-arg fuzzer=thesis_ruby \
-	--file docker/benchmark-runner/Dockerfile \
-	.
-
-run-thesis_ruby-jerryscript_fuzz: .thesis_ruby-jerryscript_fuzz-runner
-	docker run \
-	--cpus=1 \
-	--shm-size=2g \
-	--cap-add SYS_NICE \
-	--cap-add SYS_PTRACE \
-	-e FUZZ_OUTSIDE_EXPERIMENT=1 \
-	-e FORCE_LOCAL=1 \
-	-e TRIAL_ID=1 \
-	-e FUZZER=thesis_ruby \
-	-e BENCHMARK=jerryscript_fuzz \
-	-e FUZZ_TARGET=$(jerryscript_fuzz-fuzz-target) \
-	-it gcr.io/fuzzbench/runners/thesis_ruby/jerryscript_fuzz
-
-debug-thesis_ruby-jerryscript_fuzz: .thesis_ruby-jerryscript_fuzz-runner
-	docker run \
-	--cpus=1 \
-	--shm-size=2g \
-	--cap-add SYS_NICE \
-	--cap-add SYS_PTRACE \
-	-e FUZZ_OUTSIDE_EXPERIMENT=1 \
-	-e FORCE_LOCAL=1 \
-	-e TRIAL_ID=1 \
-	-e FUZZER=thesis_ruby \
-	-e BENCHMARK=jerryscript_fuzz \
-	-e FUZZ_TARGET=$(jerryscript_fuzz-fuzz-target) \
-	--entrypoint "/bin/bash" \
-	-it gcr.io/fuzzbench/runners/thesis_ruby/jerryscript_fuzz
-
-test-run-thesis_ruby-jerryscript_fuzz: .thesis_ruby-jerryscript_fuzz-runner
-	docker run \
-	--cpus=1 \
-	--shm-size=2g \
-	--cap-add SYS_NICE \
-	--cap-add SYS_PTRACE \
-	-e FUZZ_OUTSIDE_EXPERIMENT=1 \
-	-e FORCE_LOCAL=1 \
-	-e TRIAL_ID=1 \
-	-e FUZZER=thesis_ruby \
-	-e BENCHMARK=jerryscript_fuzz \
-	-e FUZZ_TARGET=$(jerryscript_fuzz-fuzz-target) \
-	-e MAX_TOTAL_TIME=20 \
-	-e SNAPSHOT_PERIOD=10 \
-	gcr.io/fuzzbench/runners/thesis_ruby/jerryscript_fuzz
-
-debug-builder-thesis_ruby-jerryscript_fuzz: .thesis_ruby-jerryscript_fuzz-builder-debug
-	docker run \
-	--cpus=1 \
-	--shm-size=2g \
-	--cap-add SYS_NICE \
-	--cap-add SYS_PTRACE \
-	-e FUZZ_OUTSIDE_EXPERIMENT=1 \
-	-e FORCE_LOCAL=1 \
-	-e TRIAL_ID=1 \
-	-e FUZZER=thesis_ruby \
-	-e BENCHMARK=jerryscript_fuzz \
-	-e FUZZ_TARGET=$(jerryscript_fuzz-fuzz-target) \
-	-e DEBUG_BUILDER=1 \
-	--entrypoint "/bin/bash" \
-	-it gcr.io/fuzzbench/builders/thesis_ruby/jerryscript_fuzz
-
-.thesis_ruby-mruby_fuzz-builder-intermediate: .mruby_fuzz-project-builder
-	docker build \
-	--tag gcr.io/fuzzbench/builders/thesis_ruby/mruby_fuzz-intermediate \
-	--build-arg BUILDKIT_INLINE_CACHE=1 \
-	--cache-from gcr.io/fuzzbench/builders/thesis_ruby/mruby_fuzz-intermediate \
-	--build-arg parent_image=gcr.io/fuzzbench/builders/benchmark/mruby_fuzz \
-	--file fuzzers/thesis_ruby/builder.Dockerfile \
-	fuzzers/thesis_ruby
-
-.thesis_ruby-mruby_fuzz-builder-debug: .thesis_ruby-mruby_fuzz-builder-intermediate base-image
-	docker build \
-	--tag gcr.io/fuzzbench/builders/thesis_ruby/mruby_fuzz \
-	--build-arg BUILDKIT_INLINE_CACHE=1 \
-	--cache-from gcr.io/fuzzbench/builders/thesis_ruby/mruby_fuzz \
-	--build-arg debug_builder=1 \
-	--build-arg benchmark=mruby_fuzz \
-	--build-arg fuzzer=thesis_ruby \
-	--build-arg parent_image=gcr.io/fuzzbench/builders/thesis_ruby/mruby_fuzz-intermediate \
-	--file docker/benchmark-builder/Dockerfile \
-	.
-
-.thesis_ruby-mruby_fuzz-builder: .thesis_ruby-mruby_fuzz-builder-intermediate base-image
-	docker build \
-	--tag gcr.io/fuzzbench/builders/thesis_ruby/mruby_fuzz \
-	--build-arg BUILDKIT_INLINE_CACHE=1 \
-	--cache-from gcr.io/fuzzbench/builders/thesis_ruby/mruby_fuzz \
-	--build-arg benchmark=mruby_fuzz \
-	--build-arg fuzzer=thesis_ruby \
-	--build-arg parent_image=gcr.io/fuzzbench/builders/thesis_ruby/mruby_fuzz-intermediate \
-	--file docker/benchmark-builder/Dockerfile \
-	.
-
-.thesis_ruby-mruby_fuzz-intermediate-runner: .thesis_ruby-mruby_fuzz-builder base-image
-	docker build \
-	--tag gcr.io/fuzzbench/runners/thesis_ruby/mruby_fuzz-intermediate \
-	--build-arg BUILDKIT_INLINE_CACHE=1 \
-	--cache-from gcr.io/fuzzbench/runners/thesis_ruby/mruby_fuzz-intermediate \
-	--file fuzzers/thesis_ruby/runner.Dockerfile \
-	fuzzers/thesis_ruby
-
-.thesis_ruby-mruby_fuzz-runner: .thesis_ruby-mruby_fuzz-intermediate-runner
-	docker build \
-	--tag gcr.io/fuzzbench/runners/thesis_ruby/mruby_fuzz \
-	--build-arg BUILDKIT_INLINE_CACHE=1 \
-	--cache-from gcr.io/fuzzbench/runners/thesis_ruby/mruby_fuzz \
-	--build-arg benchmark=mruby_fuzz \
-	--build-arg fuzzer=thesis_ruby \
-	--file docker/benchmark-runner/Dockerfile \
-	.
-
-run-thesis_ruby-mruby_fuzz: .thesis_ruby-mruby_fuzz-runner
-	docker run \
-	--cpus=1 \
-	--shm-size=2g \
-	--cap-add SYS_NICE \
-	--cap-add SYS_PTRACE \
-	-e FUZZ_OUTSIDE_EXPERIMENT=1 \
-	-e FORCE_LOCAL=1 \
-	-e TRIAL_ID=1 \
-	-e FUZZER=thesis_ruby \
-	-e BENCHMARK=mruby_fuzz \
-	-e FUZZ_TARGET=$(mruby_fuzz-fuzz-target) \
-	-it gcr.io/fuzzbench/runners/thesis_ruby/mruby_fuzz
-
-debug-thesis_ruby-mruby_fuzz: .thesis_ruby-mruby_fuzz-runner
-	docker run \
-	--cpus=1 \
-	--shm-size=2g \
-	--cap-add SYS_NICE \
-	--cap-add SYS_PTRACE \
-	-e FUZZ_OUTSIDE_EXPERIMENT=1 \
-	-e FORCE_LOCAL=1 \
-	-e TRIAL_ID=1 \
-	-e FUZZER=thesis_ruby \
-	-e BENCHMARK=mruby_fuzz \
-	-e FUZZ_TARGET=$(mruby_fuzz-fuzz-target) \
-	--entrypoint "/bin/bash" \
-	-it gcr.io/fuzzbench/runners/thesis_ruby/mruby_fuzz
-
-test-run-thesis_ruby-mruby_fuzz: .thesis_ruby-mruby_fuzz-runner
-	docker run \
-	--cpus=1 \
-	--shm-size=2g \
-	--cap-add SYS_NICE \
-	--cap-add SYS_PTRACE \
-	-e FUZZ_OUTSIDE_EXPERIMENT=1 \
-	-e FORCE_LOCAL=1 \
-	-e TRIAL_ID=1 \
-	-e FUZZER=thesis_ruby \
-	-e BENCHMARK=mruby_fuzz \
-	-e FUZZ_TARGET=$(mruby_fuzz-fuzz-target) \
-	-e MAX_TOTAL_TIME=20 \
-	-e SNAPSHOT_PERIOD=10 \
-	gcr.io/fuzzbench/runners/thesis_ruby/mruby_fuzz
-
-debug-builder-thesis_ruby-mruby_fuzz: .thesis_ruby-mruby_fuzz-builder-debug
-	docker run \
-	--cpus=1 \
-	--shm-size=2g \
-	--cap-add SYS_NICE \
-	--cap-add SYS_PTRACE \
-	-e FUZZ_OUTSIDE_EXPERIMENT=1 \
-	-e FORCE_LOCAL=1 \
-	-e TRIAL_ID=1 \
-	-e FUZZER=thesis_ruby \
-	-e BENCHMARK=mruby_fuzz \
-	-e FUZZ_TARGET=$(mruby_fuzz-fuzz-target) \
-	-e DEBUG_BUILDER=1 \
-	--entrypoint "/bin/bash" \
-	-it gcr.io/fuzzbench/builders/thesis_ruby/mruby_fuzz
-
-.thesis_ruby-php_fuzz-builder-intermediate: .php_fuzz-project-builder
-	docker build \
-	--tag gcr.io/fuzzbench/builders/thesis_ruby/php_fuzz-intermediate \
-	--build-arg BUILDKIT_INLINE_CACHE=1 \
-	--cache-from gcr.io/fuzzbench/builders/thesis_ruby/php_fuzz-intermediate \
-	--build-arg parent_image=gcr.io/fuzzbench/builders/benchmark/php_fuzz \
-	--file fuzzers/thesis_ruby/builder.Dockerfile \
-	fuzzers/thesis_ruby
-
-.thesis_ruby-php_fuzz-builder-debug: .thesis_ruby-php_fuzz-builder-intermediate base-image
-	docker build \
-	--tag gcr.io/fuzzbench/builders/thesis_ruby/php_fuzz \
-	--build-arg BUILDKIT_INLINE_CACHE=1 \
-	--cache-from gcr.io/fuzzbench/builders/thesis_ruby/php_fuzz \
-	--build-arg debug_builder=1 \
-	--build-arg benchmark=php_fuzz \
-	--build-arg fuzzer=thesis_ruby \
-	--build-arg parent_image=gcr.io/fuzzbench/builders/thesis_ruby/php_fuzz-intermediate \
-	--file docker/benchmark-builder/Dockerfile \
-	.
-
-.thesis_ruby-php_fuzz-builder: .thesis_ruby-php_fuzz-builder-intermediate base-image
-	docker build \
-	--tag gcr.io/fuzzbench/builders/thesis_ruby/php_fuzz \
-	--build-arg BUILDKIT_INLINE_CACHE=1 \
-	--cache-from gcr.io/fuzzbench/builders/thesis_ruby/php_fuzz \
-	--build-arg benchmark=php_fuzz \
-	--build-arg fuzzer=thesis_ruby \
-	--build-arg parent_image=gcr.io/fuzzbench/builders/thesis_ruby/php_fuzz-intermediate \
-	--file docker/benchmark-builder/Dockerfile \
-	.
-
-.thesis_ruby-php_fuzz-intermediate-runner: .thesis_ruby-php_fuzz-builder base-image
-	docker build \
-	--tag gcr.io/fuzzbench/runners/thesis_ruby/php_fuzz-intermediate \
-	--build-arg BUILDKIT_INLINE_CACHE=1 \
-	--cache-from gcr.io/fuzzbench/runners/thesis_ruby/php_fuzz-intermediate \
-	--file fuzzers/thesis_ruby/runner.Dockerfile \
-	fuzzers/thesis_ruby
-
-.thesis_ruby-php_fuzz-runner: .thesis_ruby-php_fuzz-intermediate-runner
-	docker build \
-	--tag gcr.io/fuzzbench/runners/thesis_ruby/php_fuzz \
-	--build-arg BUILDKIT_INLINE_CACHE=1 \
-	--cache-from gcr.io/fuzzbench/runners/thesis_ruby/php_fuzz \
-	--build-arg benchmark=php_fuzz \
-	--build-arg fuzzer=thesis_ruby \
-	--file docker/benchmark-runner/Dockerfile \
-	.
-
-run-thesis_ruby-php_fuzz: .thesis_ruby-php_fuzz-runner
-	docker run \
-	--cpus=1 \
-	--shm-size=2g \
-	--cap-add SYS_NICE \
-	--cap-add SYS_PTRACE \
-	-e FUZZ_OUTSIDE_EXPERIMENT=1 \
-	-e FORCE_LOCAL=1 \
-	-e TRIAL_ID=1 \
-	-e FUZZER=thesis_ruby \
-	-e BENCHMARK=php_fuzz \
-	-e FUZZ_TARGET=$(php_fuzz-fuzz-target) \
-	-it gcr.io/fuzzbench/runners/thesis_ruby/php_fuzz
-
-debug-thesis_ruby-php_fuzz: .thesis_ruby-php_fuzz-runner
-	docker run \
-	--cpus=1 \
-	--shm-size=2g \
-	--cap-add SYS_NICE \
-	--cap-add SYS_PTRACE \
-	-e FUZZ_OUTSIDE_EXPERIMENT=1 \
-	-e FORCE_LOCAL=1 \
-	-e TRIAL_ID=1 \
-	-e FUZZER=thesis_ruby \
-	-e BENCHMARK=php_fuzz \
-	-e FUZZ_TARGET=$(php_fuzz-fuzz-target) \
-	--entrypoint "/bin/bash" \
-	-it gcr.io/fuzzbench/runners/thesis_ruby/php_fuzz
-
-test-run-thesis_ruby-php_fuzz: .thesis_ruby-php_fuzz-runner
-	docker run \
-	--cpus=1 \
-	--shm-size=2g \
-	--cap-add SYS_NICE \
-	--cap-add SYS_PTRACE \
-	-e FUZZ_OUTSIDE_EXPERIMENT=1 \
-	-e FORCE_LOCAL=1 \
-	-e TRIAL_ID=1 \
-	-e FUZZER=thesis_ruby \
-	-e BENCHMARK=php_fuzz \
-	-e FUZZ_TARGET=$(php_fuzz-fuzz-target) \
-	-e MAX_TOTAL_TIME=20 \
-	-e SNAPSHOT_PERIOD=10 \
-	gcr.io/fuzzbench/runners/thesis_ruby/php_fuzz
-
-debug-builder-thesis_ruby-php_fuzz: .thesis_ruby-php_fuzz-builder-debug
-	docker run \
-	--cpus=1 \
-	--shm-size=2g \
-	--cap-add SYS_NICE \
-	--cap-add SYS_PTRACE \
-	-e FUZZ_OUTSIDE_EXPERIMENT=1 \
-	-e FORCE_LOCAL=1 \
-	-e TRIAL_ID=1 \
-	-e FUZZER=thesis_ruby \
-	-e BENCHMARK=php_fuzz \
-	-e FUZZ_TARGET=$(php_fuzz-fuzz-target) \
-	-e DEBUG_BUILDER=1 \
-	--entrypoint "/bin/bash" \
-	-it gcr.io/fuzzbench/builders/thesis_ruby/php_fuzz
-
 .thesis_js-jerryscript_fuzz-builder-intermediate: .jerryscript_fuzz-project-builder
 	docker build \
 	--tag gcr.io/fuzzbench/builders/thesis_js/jerryscript_fuzz-intermediate \
@@ -2779,6 +2446,339 @@ debug-builder-thesis_js-php_fuzz: .thesis_js-php_fuzz-builder-debug
 	--entrypoint "/bin/bash" \
 	-it gcr.io/fuzzbench/builders/thesis_js/php_fuzz
 
+.thesis_ruby-jerryscript_fuzz-builder-intermediate: .jerryscript_fuzz-project-builder
+	docker build \
+	--tag gcr.io/fuzzbench/builders/thesis_ruby/jerryscript_fuzz-intermediate \
+	--build-arg BUILDKIT_INLINE_CACHE=1 \
+	--cache-from gcr.io/fuzzbench/builders/thesis_ruby/jerryscript_fuzz-intermediate \
+	--build-arg parent_image=gcr.io/fuzzbench/builders/benchmark/jerryscript_fuzz \
+	--file fuzzers/thesis_ruby/builder.Dockerfile \
+	fuzzers/thesis_ruby
+
+.thesis_ruby-jerryscript_fuzz-builder-debug: .thesis_ruby-jerryscript_fuzz-builder-intermediate base-image
+	docker build \
+	--tag gcr.io/fuzzbench/builders/thesis_ruby/jerryscript_fuzz \
+	--build-arg BUILDKIT_INLINE_CACHE=1 \
+	--cache-from gcr.io/fuzzbench/builders/thesis_ruby/jerryscript_fuzz \
+	--build-arg debug_builder=1 \
+	--build-arg benchmark=jerryscript_fuzz \
+	--build-arg fuzzer=thesis_ruby \
+	--build-arg parent_image=gcr.io/fuzzbench/builders/thesis_ruby/jerryscript_fuzz-intermediate \
+	--file docker/benchmark-builder/Dockerfile \
+	.
+
+.thesis_ruby-jerryscript_fuzz-builder: .thesis_ruby-jerryscript_fuzz-builder-intermediate base-image
+	docker build \
+	--tag gcr.io/fuzzbench/builders/thesis_ruby/jerryscript_fuzz \
+	--build-arg BUILDKIT_INLINE_CACHE=1 \
+	--cache-from gcr.io/fuzzbench/builders/thesis_ruby/jerryscript_fuzz \
+	--build-arg benchmark=jerryscript_fuzz \
+	--build-arg fuzzer=thesis_ruby \
+	--build-arg parent_image=gcr.io/fuzzbench/builders/thesis_ruby/jerryscript_fuzz-intermediate \
+	--file docker/benchmark-builder/Dockerfile \
+	.
+
+.thesis_ruby-jerryscript_fuzz-intermediate-runner: .thesis_ruby-jerryscript_fuzz-builder base-image
+	docker build \
+	--tag gcr.io/fuzzbench/runners/thesis_ruby/jerryscript_fuzz-intermediate \
+	--build-arg BUILDKIT_INLINE_CACHE=1 \
+	--cache-from gcr.io/fuzzbench/runners/thesis_ruby/jerryscript_fuzz-intermediate \
+	--file fuzzers/thesis_ruby/runner.Dockerfile \
+	fuzzers/thesis_ruby
+
+.thesis_ruby-jerryscript_fuzz-runner: .thesis_ruby-jerryscript_fuzz-intermediate-runner
+	docker build \
+	--tag gcr.io/fuzzbench/runners/thesis_ruby/jerryscript_fuzz \
+	--build-arg BUILDKIT_INLINE_CACHE=1 \
+	--cache-from gcr.io/fuzzbench/runners/thesis_ruby/jerryscript_fuzz \
+	--build-arg benchmark=jerryscript_fuzz \
+	--build-arg fuzzer=thesis_ruby \
+	--file docker/benchmark-runner/Dockerfile \
+	.
+
+run-thesis_ruby-jerryscript_fuzz: .thesis_ruby-jerryscript_fuzz-runner
+	docker run \
+	--cpus=1 \
+	--shm-size=2g \
+	--cap-add SYS_NICE \
+	--cap-add SYS_PTRACE \
+	-e FUZZ_OUTSIDE_EXPERIMENT=1 \
+	-e FORCE_LOCAL=1 \
+	-e TRIAL_ID=1 \
+	-e FUZZER=thesis_ruby \
+	-e BENCHMARK=jerryscript_fuzz \
+	-e FUZZ_TARGET=$(jerryscript_fuzz-fuzz-target) \
+	-it gcr.io/fuzzbench/runners/thesis_ruby/jerryscript_fuzz
+
+debug-thesis_ruby-jerryscript_fuzz: .thesis_ruby-jerryscript_fuzz-runner
+	docker run \
+	--cpus=1 \
+	--shm-size=2g \
+	--cap-add SYS_NICE \
+	--cap-add SYS_PTRACE \
+	-e FUZZ_OUTSIDE_EXPERIMENT=1 \
+	-e FORCE_LOCAL=1 \
+	-e TRIAL_ID=1 \
+	-e FUZZER=thesis_ruby \
+	-e BENCHMARK=jerryscript_fuzz \
+	-e FUZZ_TARGET=$(jerryscript_fuzz-fuzz-target) \
+	--entrypoint "/bin/bash" \
+	-it gcr.io/fuzzbench/runners/thesis_ruby/jerryscript_fuzz
+
+test-run-thesis_ruby-jerryscript_fuzz: .thesis_ruby-jerryscript_fuzz-runner
+	docker run \
+	--cpus=1 \
+	--shm-size=2g \
+	--cap-add SYS_NICE \
+	--cap-add SYS_PTRACE \
+	-e FUZZ_OUTSIDE_EXPERIMENT=1 \
+	-e FORCE_LOCAL=1 \
+	-e TRIAL_ID=1 \
+	-e FUZZER=thesis_ruby \
+	-e BENCHMARK=jerryscript_fuzz \
+	-e FUZZ_TARGET=$(jerryscript_fuzz-fuzz-target) \
+	-e MAX_TOTAL_TIME=20 \
+	-e SNAPSHOT_PERIOD=10 \
+	gcr.io/fuzzbench/runners/thesis_ruby/jerryscript_fuzz
+
+debug-builder-thesis_ruby-jerryscript_fuzz: .thesis_ruby-jerryscript_fuzz-builder-debug
+	docker run \
+	--cpus=1 \
+	--shm-size=2g \
+	--cap-add SYS_NICE \
+	--cap-add SYS_PTRACE \
+	-e FUZZ_OUTSIDE_EXPERIMENT=1 \
+	-e FORCE_LOCAL=1 \
+	-e TRIAL_ID=1 \
+	-e FUZZER=thesis_ruby \
+	-e BENCHMARK=jerryscript_fuzz \
+	-e FUZZ_TARGET=$(jerryscript_fuzz-fuzz-target) \
+	-e DEBUG_BUILDER=1 \
+	--entrypoint "/bin/bash" \
+	-it gcr.io/fuzzbench/builders/thesis_ruby/jerryscript_fuzz
+
+.thesis_ruby-mruby_fuzz-builder-intermediate: .mruby_fuzz-project-builder
+	docker build \
+	--tag gcr.io/fuzzbench/builders/thesis_ruby/mruby_fuzz-intermediate \
+	--build-arg BUILDKIT_INLINE_CACHE=1 \
+	--cache-from gcr.io/fuzzbench/builders/thesis_ruby/mruby_fuzz-intermediate \
+	--build-arg parent_image=gcr.io/fuzzbench/builders/benchmark/mruby_fuzz \
+	--file fuzzers/thesis_ruby/builder.Dockerfile \
+	fuzzers/thesis_ruby
+
+.thesis_ruby-mruby_fuzz-builder-debug: .thesis_ruby-mruby_fuzz-builder-intermediate base-image
+	docker build \
+	--tag gcr.io/fuzzbench/builders/thesis_ruby/mruby_fuzz \
+	--build-arg BUILDKIT_INLINE_CACHE=1 \
+	--cache-from gcr.io/fuzzbench/builders/thesis_ruby/mruby_fuzz \
+	--build-arg debug_builder=1 \
+	--build-arg benchmark=mruby_fuzz \
+	--build-arg fuzzer=thesis_ruby \
+	--build-arg parent_image=gcr.io/fuzzbench/builders/thesis_ruby/mruby_fuzz-intermediate \
+	--file docker/benchmark-builder/Dockerfile \
+	.
+
+.thesis_ruby-mruby_fuzz-builder: .thesis_ruby-mruby_fuzz-builder-intermediate base-image
+	docker build \
+	--tag gcr.io/fuzzbench/builders/thesis_ruby/mruby_fuzz \
+	--build-arg BUILDKIT_INLINE_CACHE=1 \
+	--cache-from gcr.io/fuzzbench/builders/thesis_ruby/mruby_fuzz \
+	--build-arg benchmark=mruby_fuzz \
+	--build-arg fuzzer=thesis_ruby \
+	--build-arg parent_image=gcr.io/fuzzbench/builders/thesis_ruby/mruby_fuzz-intermediate \
+	--file docker/benchmark-builder/Dockerfile \
+	.
+
+.thesis_ruby-mruby_fuzz-intermediate-runner: .thesis_ruby-mruby_fuzz-builder base-image
+	docker build \
+	--tag gcr.io/fuzzbench/runners/thesis_ruby/mruby_fuzz-intermediate \
+	--build-arg BUILDKIT_INLINE_CACHE=1 \
+	--cache-from gcr.io/fuzzbench/runners/thesis_ruby/mruby_fuzz-intermediate \
+	--file fuzzers/thesis_ruby/runner.Dockerfile \
+	fuzzers/thesis_ruby
+
+.thesis_ruby-mruby_fuzz-runner: .thesis_ruby-mruby_fuzz-intermediate-runner
+	docker build \
+	--tag gcr.io/fuzzbench/runners/thesis_ruby/mruby_fuzz \
+	--build-arg BUILDKIT_INLINE_CACHE=1 \
+	--cache-from gcr.io/fuzzbench/runners/thesis_ruby/mruby_fuzz \
+	--build-arg benchmark=mruby_fuzz \
+	--build-arg fuzzer=thesis_ruby \
+	--file docker/benchmark-runner/Dockerfile \
+	.
+
+run-thesis_ruby-mruby_fuzz: .thesis_ruby-mruby_fuzz-runner
+	docker run \
+	--cpus=1 \
+	--shm-size=2g \
+	--cap-add SYS_NICE \
+	--cap-add SYS_PTRACE \
+	-e FUZZ_OUTSIDE_EXPERIMENT=1 \
+	-e FORCE_LOCAL=1 \
+	-e TRIAL_ID=1 \
+	-e FUZZER=thesis_ruby \
+	-e BENCHMARK=mruby_fuzz \
+	-e FUZZ_TARGET=$(mruby_fuzz-fuzz-target) \
+	-it gcr.io/fuzzbench/runners/thesis_ruby/mruby_fuzz
+
+debug-thesis_ruby-mruby_fuzz: .thesis_ruby-mruby_fuzz-runner
+	docker run \
+	--cpus=1 \
+	--shm-size=2g \
+	--cap-add SYS_NICE \
+	--cap-add SYS_PTRACE \
+	-e FUZZ_OUTSIDE_EXPERIMENT=1 \
+	-e FORCE_LOCAL=1 \
+	-e TRIAL_ID=1 \
+	-e FUZZER=thesis_ruby \
+	-e BENCHMARK=mruby_fuzz \
+	-e FUZZ_TARGET=$(mruby_fuzz-fuzz-target) \
+	--entrypoint "/bin/bash" \
+	-it gcr.io/fuzzbench/runners/thesis_ruby/mruby_fuzz
+
+test-run-thesis_ruby-mruby_fuzz: .thesis_ruby-mruby_fuzz-runner
+	docker run \
+	--cpus=1 \
+	--shm-size=2g \
+	--cap-add SYS_NICE \
+	--cap-add SYS_PTRACE \
+	-e FUZZ_OUTSIDE_EXPERIMENT=1 \
+	-e FORCE_LOCAL=1 \
+	-e TRIAL_ID=1 \
+	-e FUZZER=thesis_ruby \
+	-e BENCHMARK=mruby_fuzz \
+	-e FUZZ_TARGET=$(mruby_fuzz-fuzz-target) \
+	-e MAX_TOTAL_TIME=20 \
+	-e SNAPSHOT_PERIOD=10 \
+	gcr.io/fuzzbench/runners/thesis_ruby/mruby_fuzz
+
+debug-builder-thesis_ruby-mruby_fuzz: .thesis_ruby-mruby_fuzz-builder-debug
+	docker run \
+	--cpus=1 \
+	--shm-size=2g \
+	--cap-add SYS_NICE \
+	--cap-add SYS_PTRACE \
+	-e FUZZ_OUTSIDE_EXPERIMENT=1 \
+	-e FORCE_LOCAL=1 \
+	-e TRIAL_ID=1 \
+	-e FUZZER=thesis_ruby \
+	-e BENCHMARK=mruby_fuzz \
+	-e FUZZ_TARGET=$(mruby_fuzz-fuzz-target) \
+	-e DEBUG_BUILDER=1 \
+	--entrypoint "/bin/bash" \
+	-it gcr.io/fuzzbench/builders/thesis_ruby/mruby_fuzz
+
+.thesis_ruby-php_fuzz-builder-intermediate: .php_fuzz-project-builder
+	docker build \
+	--tag gcr.io/fuzzbench/builders/thesis_ruby/php_fuzz-intermediate \
+	--build-arg BUILDKIT_INLINE_CACHE=1 \
+	--cache-from gcr.io/fuzzbench/builders/thesis_ruby/php_fuzz-intermediate \
+	--build-arg parent_image=gcr.io/fuzzbench/builders/benchmark/php_fuzz \
+	--file fuzzers/thesis_ruby/builder.Dockerfile \
+	fuzzers/thesis_ruby
+
+.thesis_ruby-php_fuzz-builder-debug: .thesis_ruby-php_fuzz-builder-intermediate base-image
+	docker build \
+	--tag gcr.io/fuzzbench/builders/thesis_ruby/php_fuzz \
+	--build-arg BUILDKIT_INLINE_CACHE=1 \
+	--cache-from gcr.io/fuzzbench/builders/thesis_ruby/php_fuzz \
+	--build-arg debug_builder=1 \
+	--build-arg benchmark=php_fuzz \
+	--build-arg fuzzer=thesis_ruby \
+	--build-arg parent_image=gcr.io/fuzzbench/builders/thesis_ruby/php_fuzz-intermediate \
+	--file docker/benchmark-builder/Dockerfile \
+	.
+
+.thesis_ruby-php_fuzz-builder: .thesis_ruby-php_fuzz-builder-intermediate base-image
+	docker build \
+	--tag gcr.io/fuzzbench/builders/thesis_ruby/php_fuzz \
+	--build-arg BUILDKIT_INLINE_CACHE=1 \
+	--cache-from gcr.io/fuzzbench/builders/thesis_ruby/php_fuzz \
+	--build-arg benchmark=php_fuzz \
+	--build-arg fuzzer=thesis_ruby \
+	--build-arg parent_image=gcr.io/fuzzbench/builders/thesis_ruby/php_fuzz-intermediate \
+	--file docker/benchmark-builder/Dockerfile \
+	.
+
+.thesis_ruby-php_fuzz-intermediate-runner: .thesis_ruby-php_fuzz-builder base-image
+	docker build \
+	--tag gcr.io/fuzzbench/runners/thesis_ruby/php_fuzz-intermediate \
+	--build-arg BUILDKIT_INLINE_CACHE=1 \
+	--cache-from gcr.io/fuzzbench/runners/thesis_ruby/php_fuzz-intermediate \
+	--file fuzzers/thesis_ruby/runner.Dockerfile \
+	fuzzers/thesis_ruby
+
+.thesis_ruby-php_fuzz-runner: .thesis_ruby-php_fuzz-intermediate-runner
+	docker build \
+	--tag gcr.io/fuzzbench/runners/thesis_ruby/php_fuzz \
+	--build-arg BUILDKIT_INLINE_CACHE=1 \
+	--cache-from gcr.io/fuzzbench/runners/thesis_ruby/php_fuzz \
+	--build-arg benchmark=php_fuzz \
+	--build-arg fuzzer=thesis_ruby \
+	--file docker/benchmark-runner/Dockerfile \
+	.
+
+run-thesis_ruby-php_fuzz: .thesis_ruby-php_fuzz-runner
+	docker run \
+	--cpus=1 \
+	--shm-size=2g \
+	--cap-add SYS_NICE \
+	--cap-add SYS_PTRACE \
+	-e FUZZ_OUTSIDE_EXPERIMENT=1 \
+	-e FORCE_LOCAL=1 \
+	-e TRIAL_ID=1 \
+	-e FUZZER=thesis_ruby \
+	-e BENCHMARK=php_fuzz \
+	-e FUZZ_TARGET=$(php_fuzz-fuzz-target) \
+	-it gcr.io/fuzzbench/runners/thesis_ruby/php_fuzz
+
+debug-thesis_ruby-php_fuzz: .thesis_ruby-php_fuzz-runner
+	docker run \
+	--cpus=1 \
+	--shm-size=2g \
+	--cap-add SYS_NICE \
+	--cap-add SYS_PTRACE \
+	-e FUZZ_OUTSIDE_EXPERIMENT=1 \
+	-e FORCE_LOCAL=1 \
+	-e TRIAL_ID=1 \
+	-e FUZZER=thesis_ruby \
+	-e BENCHMARK=php_fuzz \
+	-e FUZZ_TARGET=$(php_fuzz-fuzz-target) \
+	--entrypoint "/bin/bash" \
+	-it gcr.io/fuzzbench/runners/thesis_ruby/php_fuzz
+
+test-run-thesis_ruby-php_fuzz: .thesis_ruby-php_fuzz-runner
+	docker run \
+	--cpus=1 \
+	--shm-size=2g \
+	--cap-add SYS_NICE \
+	--cap-add SYS_PTRACE \
+	-e FUZZ_OUTSIDE_EXPERIMENT=1 \
+	-e FORCE_LOCAL=1 \
+	-e TRIAL_ID=1 \
+	-e FUZZER=thesis_ruby \
+	-e BENCHMARK=php_fuzz \
+	-e FUZZ_TARGET=$(php_fuzz-fuzz-target) \
+	-e MAX_TOTAL_TIME=20 \
+	-e SNAPSHOT_PERIOD=10 \
+	gcr.io/fuzzbench/runners/thesis_ruby/php_fuzz
+
+debug-builder-thesis_ruby-php_fuzz: .thesis_ruby-php_fuzz-builder-debug
+	docker run \
+	--cpus=1 \
+	--shm-size=2g \
+	--cap-add SYS_NICE \
+	--cap-add SYS_PTRACE \
+	-e FUZZ_OUTSIDE_EXPERIMENT=1 \
+	-e FORCE_LOCAL=1 \
+	-e TRIAL_ID=1 \
+	-e FUZZER=thesis_ruby \
+	-e BENCHMARK=php_fuzz \
+	-e FUZZ_TARGET=$(php_fuzz-fuzz-target) \
+	-e DEBUG_BUILDER=1 \
+	--entrypoint "/bin/bash" \
+	-it gcr.io/fuzzbench/builders/thesis_ruby/php_fuzz
+
 build-afl-jerryscript_fuzz: .afl-jerryscript_fuzz-runner
 build-afl-mruby_fuzz: .afl-mruby_fuzz-runner
 build-afl-php_fuzz: .afl-php_fuzz-runner
@@ -2803,13 +2803,13 @@ build-thesis_php-jerryscript_fuzz: .thesis_php-jerryscript_fuzz-runner
 build-thesis_php-mruby_fuzz: .thesis_php-mruby_fuzz-runner
 build-thesis_php-php_fuzz: .thesis_php-php_fuzz-runner
 
-build-thesis_ruby-jerryscript_fuzz: .thesis_ruby-jerryscript_fuzz-runner
-build-thesis_ruby-mruby_fuzz: .thesis_ruby-mruby_fuzz-runner
-build-thesis_ruby-php_fuzz: .thesis_ruby-php_fuzz-runner
-
 build-thesis_js-jerryscript_fuzz: .thesis_js-jerryscript_fuzz-runner
 build-thesis_js-mruby_fuzz: .thesis_js-mruby_fuzz-runner
 build-thesis_js-php_fuzz: .thesis_js-php_fuzz-runner
+
+build-thesis_ruby-jerryscript_fuzz: .thesis_ruby-jerryscript_fuzz-runner
+build-thesis_ruby-mruby_fuzz: .thesis_ruby-mruby_fuzz-runner
+build-thesis_ruby-php_fuzz: .thesis_ruby-php_fuzz-runner
 
 build-coverage-jerryscript_fuzz: .coverage-jerryscript_fuzz-builder
 build-coverage-mruby_fuzz: .coverage-mruby_fuzz-builder
@@ -2827,10 +2827,10 @@ build-nautilus-all: build-nautilus-jerryscript_fuzz build-nautilus-mruby_fuzz bu
 test-run-nautilus-all: test-run-nautilus-jerryscript_fuzz test-run-nautilus-mruby_fuzz test-run-nautilus-php_fuzz
 build-thesis_php-all: build-thesis_php-jerryscript_fuzz build-thesis_php-mruby_fuzz build-thesis_php-php_fuzz
 test-run-thesis_php-all: test-run-thesis_php-jerryscript_fuzz test-run-thesis_php-mruby_fuzz test-run-thesis_php-php_fuzz
-build-thesis_ruby-all: build-thesis_ruby-jerryscript_fuzz build-thesis_ruby-mruby_fuzz build-thesis_ruby-php_fuzz
-test-run-thesis_ruby-all: test-run-thesis_ruby-jerryscript_fuzz test-run-thesis_ruby-mruby_fuzz test-run-thesis_ruby-php_fuzz
 build-thesis_js-all: build-thesis_js-jerryscript_fuzz build-thesis_js-mruby_fuzz build-thesis_js-php_fuzz
 test-run-thesis_js-all: test-run-thesis_js-jerryscript_fuzz test-run-thesis_js-mruby_fuzz test-run-thesis_js-php_fuzz
+build-thesis_ruby-all: build-thesis_ruby-jerryscript_fuzz build-thesis_ruby-mruby_fuzz build-thesis_ruby-php_fuzz
+test-run-thesis_ruby-all: test-run-thesis_ruby-jerryscript_fuzz test-run-thesis_ruby-mruby_fuzz test-run-thesis_ruby-php_fuzz
 build-coverage-all: build-coverage-jerryscript_fuzz build-coverage-mruby_fuzz build-coverage-php_fuzz
 test-run-coverage-all: test-run-coverage-jerryscript_fuzz test-run-coverage-mruby_fuzz test-run-coverage-php_fuzz
-build-all: build-afl-all build-aflplusplus-all build-custom_cov-all build-gramatron-all build-nautilus-all build-thesis_php-all build-thesis_ruby-all build-thesis_js-all build-coverage-all
+build-all: build-afl-all build-aflplusplus-all build-custom_cov-all build-gramatron-all build-nautilus-all build-thesis_php-all build-thesis_js-all build-thesis_ruby-all build-coverage-all
