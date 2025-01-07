@@ -55,3 +55,26 @@ docker run --rm --entrypoint cat gcr.io/fuzzbench/builders/custom_cov/php_fuzz:l
 cd evaluation/fuzzbench/coverage
 python3 get_results.py /tmp/fuzzbench-results/
 ```
+9. get the coverage for each trial for each fuzzer's corpus
+```
+LLVM_PROFILE_FILE="<FUZZER>.<TARGET>.<TRIAL>.profraw" ./<FUZZER>-cov \
+      -timeout=0.2  \
+      -print_coverage=1 \
+      -fork=1\
+      -ignore_timeouts=1\
+      -ignore_crashes=1\
+      -ignore_ooms=1\
+      -rss_limit_mb=1024 \
+      -runs=0 \
+      <CORPUS_FOLDER>
+```
+10. translate the ``profraw`` to ``profdata``
+```
+llvm-profdata-18 merge -sparse <FUZZER>.<TARGET>.<TRIAL>.profraw -o <FUZZER>.<TARGET>.<TRIAL>.profdata
+```
+11. get the coverage
+This will give you the coverage of the target in html. There you will see the median branch coverage for all targets, intrepreter and parser.
+```
+llvm-cov-18 show -format=html -instr-profile=<FUZZER>.<TARGET>.<TRIAL>.profdata  ./<FUZZER>-cov -output-dir=<COVERAGE_OUTPUT>
+```
+
