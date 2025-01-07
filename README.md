@@ -23,7 +23,8 @@ cd ./evaluation/fuzzbench
 
 First create the directory for the results
 ```
-mkdir /tmp/fuzzbench-results
+mkdir /tmp/fuzzbench-results-data
+mkdir /tmp/fuzzbench-results-report
 ```
 Run this command for each fuzzer and fuzzing target. Each evaluation takes one day.
 ``` bash
