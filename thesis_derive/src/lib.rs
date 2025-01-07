@@ -14,9 +14,9 @@ pub fn my_derive_proc_macro(input: proc_macro::TokenStream) -> proc_macro::Token
     let root_name = parsed.ident;
     let expanded = match parsed.data {
         Data::Struct(ref data) => {
-            let nodes = get_nodes(&data.nodes)
+            let nodes = get_nodes(&data.fields)
                 .expect("Structs cannot have no nodes according to borsh!");
-            let is_named = matches!(data.nodes, syn::nodes::Named(_));
+            let is_named = matches!(data.fields, syn::Fields::Named(_));
             let parsed = parse_nodes(nodes);
             let generate = construct_generate_function_struct(&parsed, is_named);
 
@@ -158,8 +158,8 @@ pub fn my_derive_proc_macro(input: proc_macro::TokenStream) -> proc_macro::Token
                         }
                     }
                 }
-                let nodes = get_nodes(&variant.nodes);
-                let is_named = matches!(variant.nodes, syn::nodes::Named(_));
+                let nodes = get_nodes(&variant.fields);
+                let is_named = matches!(variant.fields, syn::Fields::Named(_));
                 if is_recursive {
                     recursive_variants.push(quote! {#i,});
                 } else {
@@ -486,8 +486,8 @@ pub fn my_derive_proc_macro(input: proc_macro::TokenStream) -> proc_macro::Token
     TokenStream::from(expanded)
 }
 
-fn parse_nodes(nodes: &syn::punctuated::Punctuated<syn::Field, Comma>) -> Vec<GrammarField> {
-    nodes
+fn parse_nodes(fields: &syn::punctuated::Punctuated<syn::Field, Comma>) -> Vec<GrammarField> {
+    fields
         .iter()
         .enumerate()
         .map(|(id, field)| {
@@ -644,10 +644,10 @@ impl GrammarField {
     }
 }
 
-fn get_nodes(nodes: &syn::nodes) -> Option<&syn::punctuated::Punctuated<syn::Field, Comma>> {
-    match nodes {
-        syn::nodes::Unnamed(nodesUnnamed { ref unnamed, .. }) => Some(unnamed),
-        syn::nodes::Named(nodesNamed {
+fn get_nodes(fields: &syn::Fields) -> Option<&syn::punctuated::Punctuated<syn::Field, Comma>> {
+    match fields {
+        syn::Fields::Unnamed(FieldsUnnamed { ref unnamed, .. }) => Some(unnamed),
+        syn::Fields::Named(FieldsNamed {
             brace_token: _,
             ref named,
         }) => Some(named),
@@ -664,9 +664,9 @@ pub fn to_nautilus(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
     let root_name = parsed.ident;
     let expanded = match parsed.data {
         syn::Data::Struct(ref data) => {
-            let nodes = get_nodes(&data.nodes)
+            let nodes = get_nodes(&data.fields)
                 .expect("Structs cannot have no nodes according to borsh!");
-            let is_named = matches!(data.nodes, syn::nodes::Named(_));
+            let is_named = matches!(data.fields, syn::Fields::Named(_));
             let parsed = parse_nodes(nodes);
             let nodes = parsed.iter().map(|field| {
                 let name = field.get_name(is_named);
@@ -688,7 +688,7 @@ pub fn to_nautilus(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
         syn::Data::Enum(ref data) => {
             let mut variants = vec![];
             for (i, variant) in data.variants.iter().enumerate() {
-                let nodes = get_nodes(&variant.nodes);
+                let nodes = get_nodes(&variant.fields);
                 let nodes = match nodes {
                     Some(nodes) => {
                         let field_min_size = nodes.iter().map(|f| {
