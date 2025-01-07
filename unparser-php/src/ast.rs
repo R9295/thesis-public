@@ -46,7 +46,6 @@ pub enum Statement {
     RequireOnce(Expression),
     Unset(Vec<Expression>),
     Empty,
-
     // Grouping
     #[recursive]
     StatementGroup(Body),

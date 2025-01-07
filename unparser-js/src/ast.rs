@@ -162,9 +162,10 @@ pub enum Statement {
     ),
 
     VariableDeclaration(
+        bool,
         // Variable declaration (e.g., let x = 5)
         String,
-        Option<Expression>,
+        Expression,
     ),
 
     #[recursive]

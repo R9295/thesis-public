@@ -20,6 +20,7 @@ impl fmt::Display for Statement {
                 Some(e) => format!("yield {};", e),
                 None => "yield;".to_string(),
             },
+            Statement::Empty => "".to_string(),
             Statement::YieldFrom(expr) => format!("yield from {};", expr),
             Statement::Conditional(cond) => cond.to_string(),
             Statement::Loop(loop_type) => loop_type.to_string(),
@@ -31,7 +32,6 @@ impl fmt::Display for Statement {
                 Some(e) => format!("continue {};", e),
                 None => "continue;".to_string(),
             },
-                Statement::Empty => "".to_string(),
             Statement::Goto(label) => format!("goto {};", label),
             Statement::Label(label) => format!("{}:", label),
             Statement::FunctionDeclaration(name, params, body) => {

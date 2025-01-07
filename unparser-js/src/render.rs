@@ -168,17 +168,17 @@ impl fmt::Display for Statement {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
             Statement::If(condition, then_branch, else_if_branches, else_branch) => {
-                let mut ret = format!("if ({}) {{\n{}\n}}", condition, then_branch);
+                let mut ret = format!("if ({}) {{\n{}\n}}\n", condition, then_branch);
                 if let Some(else_if_branches) = else_if_branches {
                     for (else_if_condition, else_if_branch) in else_if_branches {
                         ret.push_str(&format!(
-                            " else if ({}) {{\n{}\n}}",
+                            " else if ({}) {{\n{}\n}}\n",
                             else_if_condition, else_if_branch
                         ));
                     }
                 }
                 if let Some(else_branch) = else_branch {
-                    ret.push_str(&format!(" else {{\n{}\n}}", else_branch));
+                    ret.push_str(&format!(" else {{\n{}\n}}\n", else_branch));
                 }
                 write!(f, "{}\n", ret)
             }
@@ -208,8 +208,8 @@ impl fmt::Display for Statement {
             Statement::Throw(expression) => {
                 write!(f, "throw {};\n", expression)
             }
-            Statement::Break => write!(f, "break;"),
-            Statement::Continue => write!(f, "continue;"),
+            Statement::Break => write!(f, "break;\n"),
+            Statement::Continue => write!(f, "continue;\n"),
             Statement::Switch(condition, cases, default_case) => {
                 let mut ret = format!("switch ({}) {{\n", condition);
                 for (case_condition, case_body) in cases {
@@ -221,7 +221,7 @@ impl fmt::Display for Statement {
                 if let Some(default_body) = default_case {
                     ret.push_str(&format!("  default:\n  {{ {} }}\n", default_body));
                 }
-                write!(f, "{} }}", ret)
+                write!(f, "{} }}\n", ret)
             }
             Statement::FunctionDeclaration(func) => {
                 write!(f, "{}", func)
@@ -237,7 +237,7 @@ impl fmt::Display for Statement {
                     write!(f, "  {}\n", method)?;
                 }
 
-                write!(f, "}}")
+                write!(f, "}}\n")
             }
             Statement::Import(module_name, variables) => {
                 let vars = variables.join(", ");
@@ -245,11 +245,11 @@ impl fmt::Display for Statement {
             }
             Statement::Export(variables) => {
                 let vars = variables.join(", ");
-                write!(f, "export {{{}}};", vars)
+                write!(f, "export {{{}}};\n", vars)
             }
-            Statement::VariableDeclaration(variable_name, initial_value) => match initial_value {
-                Some(value) => write!(f, "let {} = {};", variable_name, value),
-                None => write!(f, "let {};", variable_name),
+            Statement::VariableDeclaration(is_re, variable_name, value) => match is_re {
+                true => write!(f, "let {} = {};\n", variable_name, value),
+                false => write!(f, "{} = {};\n", variable_name ,value),
             },
             Statement::ForOf(variable_name, iterable, body) => {
                 write!(
@@ -266,10 +266,10 @@ impl fmt::Display for Statement {
                 )
             }
             Statement::Label(label_name, body) => {
-                write!(f, "{}:\n{};", label_name, body)
+                write!(f, "{}:\n{};\n", label_name, body)
             }
             Statement::Return(exprs) => {
-                let mut ret = format!("return");
+                let mut ret = format!("return ");
                 if let Some(exprs) = exprs {
                     if !exprs.is_empty() {
                         for (i, expr) in exprs.iter().enumerate() {
@@ -284,7 +284,7 @@ impl fmt::Display for Statement {
                 Ok(())
             }
             Statement::Yield(exprs) => {
-                let mut ret = format!("yield");
+                let mut ret = format!("yield ");
                 if let Some(exprs) = exprs {
                     if !exprs.is_empty() {
                         for (i, expr) in exprs.iter().enumerate() {
@@ -299,7 +299,7 @@ impl fmt::Display for Statement {
                 Ok(())
             }
             Statement::YieldStar(exprs) => {
-                let mut ret = format!("yield*");
+                let mut ret = format!("yield* ");
                 if let Some(exprs) = exprs {
                     if !exprs.is_empty() {
                         for (i, expr) in exprs.iter().enumerate() {
