@@ -58,6 +58,7 @@ cd evaluation/fuzzbench/coverage
 python3 get_results.py /tmp/fuzzbench-results/
 ```
 9. get the coverage for each trial for each fuzzer's corpus
+
 This command should be run for EVERY TRIAL of EVERY TARGET for EVERY FUZZER.
 ```
 LLVM_PROFILE_FILE="<FUZZER>.<TARGET>.<TRIAL>.profraw" ./<FUZZER>-cov \
@@ -73,13 +74,15 @@ LLVM_PROFILE_FILE="<FUZZER>.<TARGET>.<TRIAL>.profraw" ./<FUZZER>-cov \
 ```
 10. translate the ``profraw`` to ``profdata``
 
+This command should be run for EVERY TRIAL of EVERY TARGET for EVERY FUZZER.
 ```
 llvm-profdata-18 merge -sparse <FUZZER>.<TARGET>.<TRIAL>.profraw -o <FUZZER>.<TARGET>.<TRIAL>.profdata
 ```
 11. get the coverage
 
-This will give you the coverage of the target in html. There you will see the median branch coverage for all targets, intrepreter and parser.
+This command should be run for EVERY TRIAL of EVERY TARGET for EVERY FUZZER.
+
+This will give you the coverage of the target in html. There you will see the branch coverage for all targets, intrepreter and parser.
 ```
 llvm-cov-18 show -format=html -instr-profile=<FUZZER>.<TARGET>.<TRIAL>.profdata  ./<FUZZER>-cov -output-dir=<COVERAGE_OUTPUT>
 ```
-
