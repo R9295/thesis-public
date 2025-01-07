@@ -20,6 +20,7 @@ cd ./evaluation/fuzzbench
 ```
 
 4. run the evaluation
+
 First create the directory for the results
 ```
 mkdir /tmp/fuzzbench-results
@@ -36,7 +37,8 @@ PYTHONPATH=. python3 experiment/run_experiment.py \
 ```
 if you get stuck: refer to the [FuzzBench docs](https://google.github.io/fuzzbench/running-a-local-experiment)
 
-6. analyze coverage
+5. analyze coverage
+
 build all coverage runners
 ```
 cd evaluation/fuzzbench
@@ -56,6 +58,7 @@ cd evaluation/fuzzbench/coverage
 python3 get_results.py /tmp/fuzzbench-results/
 ```
 9. get the coverage for each trial for each fuzzer's corpus
+
 ```
 LLVM_PROFILE_FILE="<FUZZER>.<TARGET>.<TRIAL>.profraw" ./<FUZZER>-cov \
       -timeout=0.2  \
@@ -69,10 +72,12 @@ LLVM_PROFILE_FILE="<FUZZER>.<TARGET>.<TRIAL>.profraw" ./<FUZZER>-cov \
       <CORPUS_FOLDER>
 ```
 10. translate the ``profraw`` to ``profdata``
+
 ```
 llvm-profdata-18 merge -sparse <FUZZER>.<TARGET>.<TRIAL>.profraw -o <FUZZER>.<TARGET>.<TRIAL>.profdata
 ```
 11. get the coverage
+
 This will give you the coverage of the target in html. There you will see the median branch coverage for all targets, intrepreter and parser.
 ```
 llvm-cov-18 show -format=html -instr-profile=<FUZZER>.<TARGET>.<TRIAL>.profdata  ./<FUZZER>-cov -output-dir=<COVERAGE_OUTPUT>
