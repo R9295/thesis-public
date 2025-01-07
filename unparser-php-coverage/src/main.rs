@@ -33,7 +33,7 @@ impl_input!(Code);
 
 fn main() {
     let trials = (1..11).map(|i| format!("trial-{}", i)).collect::<Vec<_>>();
-    let base = PathBuf::from("/home/aarnav/projects/thesis/coverage/thesis-php-data/thesisphp0/experiment-folders/php_fuzz-thesis_php");
+    let base = PathBuf::from("./corpus");
     let here = PathBuf::from("./results");
     for i in trials {
         let my_dir = create_dir(here.join(&i)).unwrap();

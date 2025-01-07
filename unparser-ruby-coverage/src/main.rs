@@ -28,7 +28,7 @@ impl_input!(Code);
 
 fn main() {
     let trials = (1..11).map(|i| format!("trial-{}", i)).collect::<Vec<_>>();
-    let base = PathBuf::from("/home/aarnav/projects/thesis/coverage/thesis-ruby-data/thesisphp0/experiment-folders/mruby_fuzz-thesis_ruby");
+    let base = PathBuf::from("./corpus");
     let here = PathBuf::from("./results");
     for i in trials {
         let my_dir = create_dir(here.join(&i)).unwrap();

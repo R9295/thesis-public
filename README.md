@@ -56,9 +56,24 @@ docker run --rm --entrypoint cat gcr.io/fuzzbench/builders/custom_cov/php_fuzz:l
 8. Extract the results
 ```
 cd evaluation/fuzzbench/coverage
-python3 get_results.py /tmp/fuzzbench-results/
+python3 get_results.py /tmp/fuzzbench-results-data/
 ```
-9. get the coverage for each trial for each fuzzer's corpus
+
+NOTE:
+
+Since Autarkie stores the corpus in it's native format. You need to translate the corpus to the rendered corpus.
+
+This is ONLY necessary for Autarkie's corpus. ``unparser-js-coverage`` is an example, do this for ``unparser-php-coverage`` and ``unparser-ruby-coverage``.
+```
+cd unparser-js-coverage
+cargo build --release
+mkdir corpus
+# copy the trial folder in /tmp/fuzzbench-results-data/<EXPERIMENT_NAME>/experiment-folders/<TARGET_NAME>-<FUZZER_NAME>/trialxxx
+cp /tmp/fuzzbench-results-data/<EXPERIMENT_NAME>/experiment-folders/<TARGET_NAME>-<FUZZER_NAME>/* corpus/
+../target/release/unparser-js-coverage
+```
+
+10. get the coverage for each trial for each fuzzer's corpus
 
 This command should be run for EVERY TRIAL of EVERY TARGET for EVERY FUZZER.
 ```
@@ -73,13 +88,13 @@ LLVM_PROFILE_FILE="<FUZZER>.<TARGET>.<TRIAL>.profraw" ./<FUZZER>-cov \
       -runs=0 \
       <CORPUS_FOLDER>
 ```
-10. translate the ``profraw`` to ``profdata``
+11. translate the ``profraw`` to ``profdata``
 
 This command should be run for EVERY TRIAL of EVERY TARGET for EVERY FUZZER.
 ```
 llvm-profdata-18 merge -sparse <FUZZER>.<TARGET>.<TRIAL>.profraw -o <FUZZER>.<TARGET>.<TRIAL>.profdata
 ```
-11. get the coverage
+12. get the coverage
 
 This command should be run for EVERY TRIAL of EVERY TARGET for EVERY FUZZER.
 
