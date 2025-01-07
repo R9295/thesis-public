@@ -1,0 +1,2 @@
+allowed_benchmarks:
+  - mrubyy_fuzz
