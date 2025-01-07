@@ -8,4 +8,7 @@ members = [
 	"unparser-php", 
 	"unparser-ruby", 
 	"unparser-js", 
+	"unparser-php-coverage", 
+	"unparser-js-coverage", 
+	"unparser-ruby-coverage", 
 ]
